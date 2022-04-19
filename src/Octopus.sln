@@ -15,7 +15,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{0F0427
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0267E370-8E3F-43C4-A206-7F7FDA153312}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceTests", "ServiceTests", "{86F6B589-5191-4C0A-BF3B-DADBB787BFC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octopus.FunctionalTests", "Tests\Octopus.FunctionalTests\Octopus.FunctionalTests.csproj", "{E876CE20-A2DF-48DF-8151-E12EBF2DDD26}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E876CE20-A2DF-48DF-8151-E12EBF2DDD26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E876CE20-A2DF-48DF-8151-E12EBF2DDD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E876CE20-A2DF-48DF-8151-E12EBF2DDD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E876CE20-A2DF-48DF-8151-E12EBF2DDD26}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
@@ -24,6 +38,8 @@ Global
 		{2438F509-18B8-441F-9B0D-C0EBE081BF19} = {652D2DFD-B030-49D2-8989-5915FAF5A552}
 		{B9F66200-B471-4B35-BE94-100026028138} = {652D2DFD-B030-49D2-8989-5915FAF5A552}
 		{0F042741-3737-4FE3-BDFE-F9F6C30088FF} = {652D2DFD-B030-49D2-8989-5915FAF5A552}
+		{86F6B589-5191-4C0A-BF3B-DADBB787BFC4} = {0267E370-8E3F-43C4-A206-7F7FDA153312}
+		{E876CE20-A2DF-48DF-8151-E12EBF2DDD26} = {86F6B589-5191-4C0A-BF3B-DADBB787BFC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A1D8A799-6830-44E5-8C2F-8F5989F2E060}
