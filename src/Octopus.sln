@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{652D2DFD-B030-49D2-8989-5915FAF5A552}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{AEDAD9E6-BC18-4A91-BBFB-D6BA314AF410}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{2438F509-18B8-441F-9B0D-C0EBE081BF19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B9F66200-B471-4B35-BE94-100026028138}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{0F042741-3737-4FE3-BDFE-F9F6C30088FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0267E370-8E3F-43C4-A206-7F7FDA153312}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AEDAD9E6-BC18-4A91-BBFB-D6BA314AF410} = {652D2DFD-B030-49D2-8989-5915FAF5A552}
+		{2438F509-18B8-441F-9B0D-C0EBE081BF19} = {652D2DFD-B030-49D2-8989-5915FAF5A552}
+		{B9F66200-B471-4B35-BE94-100026028138} = {652D2DFD-B030-49D2-8989-5915FAF5A552}
+		{0F042741-3737-4FE3-BDFE-F9F6C30088FF} = {652D2DFD-B030-49D2-8989-5915FAF5A552}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A1D8A799-6830-44E5-8C2F-8F5989F2E060}
+	EndGlobalSection
+EndGlobal
