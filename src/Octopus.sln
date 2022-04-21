@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{69A25804
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicEntity", "BuildingBlocks\DynamicEntity\DynamicEntity\DynamicEntity.csproj", "{135871AE-DE15-4610-930E-24EEB0FE6A56}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicEntity.Tests", "BuildingBlocks\DynamicEntity\DynamicEntity.Tests\DynamicEntity.Tests.csproj", "{4DA37D8E-B24C-43E4-95CC-902353BCE2FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{135871AE-DE15-4610-930E-24EEB0FE6A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{135871AE-DE15-4610-930E-24EEB0FE6A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{135871AE-DE15-4610-930E-24EEB0FE6A56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DA37D8E-B24C-43E4-95CC-902353BCE2FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DA37D8E-B24C-43E4-95CC-902353BCE2FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DA37D8E-B24C-43E4-95CC-902353BCE2FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DA37D8E-B24C-43E4-95CC-902353BCE2FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{26480D8D-BDC7-44C1-A886-3A06AA072F95} = {2438F509-18B8-441F-9B0D-C0EBE081BF19}
 		{69A25804-31F2-47CC-9EF8-EA4F376A0BF6} = {26480D8D-BDC7-44C1-A886-3A06AA072F95}
 		{135871AE-DE15-4610-930E-24EEB0FE6A56} = {26480D8D-BDC7-44C1-A886-3A06AA072F95}
+		{4DA37D8E-B24C-43E4-95CC-902353BCE2FA} = {69A25804-31F2-47CC-9EF8-EA4F376A0BF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A1D8A799-6830-44E5-8C2F-8F5989F2E060}
