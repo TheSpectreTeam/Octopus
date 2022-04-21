@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using System.ComponentModel;
 using System.Reflection.Emit;
-using DynamicEntity.Interfaces;
 using DynamicEntity.Extensions;
 using Common.Models.DynamicEntity;
+using DynamicEntity.Abstractions;
 
 namespace DynamicEntity.Services
 {
