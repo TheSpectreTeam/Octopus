@@ -45,7 +45,7 @@ namespace DynamicEntity.Services
         private void AddDynamicPropertyToType(DynamicEntityModelProperty property)
         {
             var propertyType = property.SystemType;
-            var propertyName = $"{property.PropertyName.ToCamelCase()}";
+            var propertyName = $"{property.PropertyName.CapitalizedString()}";
             var fieldName = $"_{propertyName.ToLower()}";
 
             var fieldBuilder = _typeBuilder.DefineField(fieldName, propertyType, FieldAttributes.Public);

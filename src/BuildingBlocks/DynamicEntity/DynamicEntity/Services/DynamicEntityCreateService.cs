@@ -18,7 +18,7 @@ namespace DynamicEntity.Services
         {
             _dynamicProperties = dynamicEntity.Properties;
             return _dynamicTypeFactory.GetTypeWithDynamicProperty(
-                typeof(DynamicEntityModel),
+                typeof(DynamicEntityModelBase),
                 dynamicEntity.EntityName,
                 _dynamicProperties);
         }

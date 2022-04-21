@@ -7,14 +7,14 @@ namespace DynamicEntity.Tests.Extensions
     public class StringExtensionsTestingClass
     {
         [Fact]
-        public void ToCamelCase_WordInBadCase_ReturnCamelCaseString()
+        public void CapitalizedString_WordInBadCase_ReturnCamelCaseString()
         {
             //Arrage
             var message = "iTEm";
             var expected = "Item";
 
             //Act
-            var actual = message.ToCamelCase();
+            var actual = message.CapitalizedString();
 
             //Assert
             Assert.Equal(expected, actual);
@@ -39,7 +39,7 @@ namespace DynamicEntity.Tests.Extensions
         {
             //Arrage
             var message = "";
-            var expected = 0;
+            var expected = default(int);
 
             //Act
             var actual = message.GetValidIntProperty();
@@ -52,7 +52,7 @@ namespace DynamicEntity.Tests.Extensions
         public void GetValidIntProperty_NullValue_ReturnDefaultIntValue()
         {
             string message = null;
-            var expected = 0;
+            var expected = default(int);
 
             //Act
             var actual = message.GetValidIntProperty();
@@ -80,7 +80,7 @@ namespace DynamicEntity.Tests.Extensions
         {
             //Arrage
             string message = null;
-            var expected = DateTime.MinValue.Date;
+            var expected = default(DateTime);
 
             //Act
             var actual = message.GetValidDateTimeProperty();
@@ -94,7 +94,7 @@ namespace DynamicEntity.Tests.Extensions
         {
             //Arrage
             var message = "";
-            var expected = DateTime.MinValue.Date;
+            var expected = default(DateTime);
 
             //Act
             var actual = message.GetValidDateTimeProperty();
