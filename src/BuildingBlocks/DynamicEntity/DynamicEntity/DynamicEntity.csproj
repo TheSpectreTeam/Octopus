@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="Abstractions\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="GrEmit" Version="3.4.10" />
   </ItemGroup>
 
   <ItemGroup>

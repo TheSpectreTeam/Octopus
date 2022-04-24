@@ -4,6 +4,6 @@ namespace DynamicEntity.Abstractions
 {
     public interface IDynamicTypeFactory
     {
-        Type GetTypeWithDynamicProperty(Type parentType, string typeName, IEnumerable<DynamicEntityModelProperty> dynamicProperties);
+        Type GetTypeWithDynamicProperty(DynamicEntityModel dynamicEntity);
     }
 }
