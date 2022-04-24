@@ -11,6 +11,6 @@ namespace Common.Models.DynamicEntity
         [JsonIgnore]
         public Type SystemType => Type.GetType(SystemTypeName);
 
-        public DynamicEntityDataBaseProperty DatabaseEntityProperty { get; set; }
+        public DynamicEntityDatabaseProperty DatabaseEntityProperty { get; set; }
     }
 }

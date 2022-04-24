@@ -1,8 +1,8 @@
 ﻿namespace Common.Models.DynamicEntity
 {
-    public class DynamicEntityDataBaseProperty
+    public class DynamicEntityDatabaseProperty
     {
-        public string DataBaseTypeName { get; set; }
+        public string DatabaseTypeName { get; set; }
 
         public int Length { get; set; }
 
