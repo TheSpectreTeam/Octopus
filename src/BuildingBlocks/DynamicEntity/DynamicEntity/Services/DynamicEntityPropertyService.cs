@@ -1,6 +1,4 @@
-﻿using DynamicEntity.Models;
-
-namespace DynamicEntity.Services
+﻿namespace DynamicEntity.Services
 {
     public class DynamicEntityPropertyService : IDynamicEntityPropertyService
     {
@@ -13,7 +11,8 @@ namespace DynamicEntity.Services
 
         public Type GetDynamicEntityTypeBuilder(AssemblyBuilder assemblyBuilder, DynamicEntityModel dynamicEntity, string uniqueIdentifier)
         {
-            var moduleBuilder = assemblyBuilder.DefineDynamicModule(uniqueIdentifier);
+            var moduleBuilder = assemblyBuilder
+                .DefineDynamicModule(uniqueIdentifier);
             var typeBuilder = moduleBuilder
                 .DefineType(
                 name: dynamicEntity.EntityName,

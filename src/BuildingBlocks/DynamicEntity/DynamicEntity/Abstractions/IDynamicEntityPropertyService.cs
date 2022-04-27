@@ -2,7 +2,7 @@
 {
     public interface IDynamicEntityPropertyService
     {
-        Type GetDynamicEntityTypeBuilder(AssemblyBuilder assemblyBuilder, 
+        Type GetDynamicEntityTypeBuilder(AssemblyBuilder assemblyBuilder,
             DynamicEntityModel dynamicEntity, string uniqueIdentifier);
     }
 }

@@ -1,6 +1,4 @@
-﻿using Common.Models.DynamicEntity;
-
-namespace DynamicEntity.Abstractions
+﻿namespace DynamicEntity.Abstractions
 {
     public interface IDynamicTypeFactory
     {

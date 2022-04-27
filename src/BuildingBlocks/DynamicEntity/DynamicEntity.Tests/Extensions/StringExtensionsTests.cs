@@ -11,10 +11,8 @@ namespace DynamicEntity.Tests.Extensions
             //Arrage
             var message = "iTEm";
             var expected = "Item";
-
             //Act
             var actual = message.CapitalizedString();
-
             //Assert
             Assert.Equal(expected, actual);
         }

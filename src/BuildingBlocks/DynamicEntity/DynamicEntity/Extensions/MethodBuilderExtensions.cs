@@ -22,7 +22,6 @@
                 propertySetGenerator.Stfld(fieldBuilder);
                 propertySetGenerator.Ret();
             }
-
             return methodBuilder;
         }
     }

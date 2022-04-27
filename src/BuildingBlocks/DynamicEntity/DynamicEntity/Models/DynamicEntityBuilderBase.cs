@@ -2,8 +2,8 @@
 {
     internal class DynamicEntityBuilderBase
     {
-        internal TypeBuilder TypeBuilder { get; set; }
-        internal DynamicEntityModelProperty PropertyField { get; set; }
+        protected TypeBuilder TypeBuilder { get; set; }
+        protected DynamicEntityModelProperty PropertyField { get; set; }
 
         internal DynamicEntityBuilderBase(TypeBuilder typeBuilder, DynamicEntityModelProperty propertyField)
         {

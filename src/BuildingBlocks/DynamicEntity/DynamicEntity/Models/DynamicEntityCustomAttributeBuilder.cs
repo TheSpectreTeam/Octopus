@@ -1,11 +1,9 @@
-﻿using System.ComponentModel;
-
-namespace DynamicEntity.Models
+﻿namespace DynamicEntity.Models
 {
     internal class DynamicEntityCustomAttributeBuilder : DynamicEntityBuilderBase
     {
         private readonly Type _attributeType = typeof(DisplayNameAttribute);
-        internal CustomAttributeBuilder CustomAttributeBuilder => GetCustomAttributeBuilder();
+        protected CustomAttributeBuilder CustomAttributeBuilder => GetCustomAttributeBuilder();
 
         internal DynamicEntityCustomAttributeBuilder(TypeBuilder typeBuilder,
             DynamicEntityModelProperty propertyField)

@@ -11,14 +11,7 @@ namespace DynamicEntity.Tests.Extensions
             PropertyName = "naMe",
             SystemTypeName = "System.String",
             ValueIndex = 1,
-            DatabaseEntityProperty = new DynamicEntityDatabaseProperty
-            {
-                DatabaseTypeName = default(string),
-                Length = default(int),
-                IsNotNull = default(bool),
-                IsKey = default(bool),
-                Comment = default(string),
-            }
+            DatabaseEntityProperty = new DynamicEntityDatabaseProperty()
         };
 
         [Fact]
@@ -26,10 +19,8 @@ namespace DynamicEntity.Tests.Extensions
         {
             //Arrage
             var expected = "Name";
-
             //Act
             var actual = dynamicEntityPropertyTestingModel.GetValidPropertyName();
-
             //Assert
             Assert.Equal(actual, expected);
         }
@@ -39,10 +30,8 @@ namespace DynamicEntity.Tests.Extensions
         {
             //Arrage
             var expected = "_name";
-
             //Act
             var actual = dynamicEntityPropertyTestingModel.GetValidFieldName();
-
             //Assert
             Assert.Equal(actual, expected);
         }

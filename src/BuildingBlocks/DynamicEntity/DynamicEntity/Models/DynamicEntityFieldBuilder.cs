@@ -2,8 +2,7 @@
 {
     internal class DynamicEntityFieldBuilder : DynamicEntityCustomAttributeBuilder
     {
-        internal FieldBuilder FieldBuilder { get; }
-
+        protected FieldBuilder FieldBuilder { get; }
         private readonly FieldAttributes _fieldAttributes;
 
         internal DynamicEntityFieldBuilder(TypeBuilder typeBuilder,

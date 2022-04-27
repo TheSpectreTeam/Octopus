@@ -2,8 +2,7 @@
 {
     internal class DynamicEntityMethodBuilder : DynamicEntityFieldBuilder
     {
-        internal MethodAttributes MethodAttributes { get; }
-        
+        private readonly MethodAttributes _methodAttributes;
         internal DynamicEntityMethodBuilder(TypeBuilder typeBuilder, 
             DynamicEntityModelProperty propertyField,
             MethodAttributes methodAttributes = MethodAttributes.Public | 
@@ -11,7 +10,7 @@
             MethodAttributes.HideBySig)
             : base(typeBuilder, propertyField)
         {
-            MethodAttributes = methodAttributes;
+            _methodAttributes = methodAttributes;
         }
 
         internal MethodBuilder GetMethodBuilder(string methodName, 
@@ -21,7 +20,7 @@
             var methodBuilder = base.TypeBuilder.DefineMethod(
                 returnType: returnType,
                 name: GetMethodName(methodName),
-                attributes: MethodAttributes,
+                attributes: _methodAttributes,
                 parameterTypes: parameterTypes);
             return methodBuilder;
         }

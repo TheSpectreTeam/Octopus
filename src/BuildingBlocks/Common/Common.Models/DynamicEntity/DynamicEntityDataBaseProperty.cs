@@ -2,7 +2,7 @@
 {
     public class DynamicEntityDatabaseProperty
     {
-        public string? DatabaseTypeName { get; set; }
+        public string DatabaseTypeName { get; set; }
 
         public int Length { get; set; }
 

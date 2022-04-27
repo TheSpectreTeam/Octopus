@@ -2,10 +2,10 @@
 {
     internal class DynamicEntityPropertyBuilder : DynamicEntityMethodBuilder
     {
-        internal PropertyBuilder PropertyBuilder { get; }
-        private readonly PropertyAttributes _propertyAttributes;
         private readonly Type[]? _parameterTypes;
-
+        private readonly PropertyBuilder _propertyBuilder;
+        private readonly PropertyAttributes _propertyAttributes;
+        
         internal DynamicEntityPropertyBuilder(TypeBuilder typeBuilder, 
             DynamicEntityModelProperty propertyField,
             Type[]? parameterTypes = null,
@@ -14,11 +14,11 @@
         {
             _propertyAttributes = propertyAttributes;
             _parameterTypes = parameterTypes;
-            PropertyBuilder = GetPropertyBuilder();
+            _propertyBuilder = GetPropertyBuilder();
         }
 
         internal void SetGetMethod()
-            => PropertyBuilder
+            => _propertyBuilder
             .SetGetMethod(
                 base.GetMethodBuilder(
                 methodName: "get",
@@ -27,14 +27,14 @@
                 .GenerateGetMethodILCode(base.FieldBuilder));
 
         internal void SetSetMethod()
-            => PropertyBuilder
+            => _propertyBuilder
             .SetSetMethod(base.GetMethodBuilder(
                 methodName: "set",
                 parameterTypes: new[] { base.PropertyField.SystemType })
                 .GenerateSetMethodILCode(base.FieldBuilder));
 
         internal void SetCustomAttribute()
-            => PropertyBuilder
+            => _propertyBuilder
             .SetCustomAttribute(CustomAttributeBuilder);
 
         private PropertyBuilder GetPropertyBuilder() 
