@@ -23,28 +23,14 @@ namespace DynamicEntity.Tests.Services
                         PropertyName = "Id",
                         SystemTypeName = "System.Int32",
                         ValueIndex = 0,
-                        DatabaseEntityProperty = new DynamicEntityDatabaseProperty
-                        {
-                            DatabaseTypeName = default(string),
-                            Length = default(int),
-                            IsNotNull = default(bool),
-                            IsKey = default(bool),
-                            Comment = default(string),
-                        }
+                        DatabaseEntityProperty = new DynamicEntityDatabaseProperty()
                     },
                     new DynamicEntityModelProperty
                     {
                         PropertyName = "Name",
                         SystemTypeName = "System.String",
                         ValueIndex = 1,
-                        DatabaseEntityProperty = new DynamicEntityDatabaseProperty
-                        {
-                            DatabaseTypeName = default(string),
-                            Length = default(int),
-                            IsNotNull = default(bool),
-                            IsKey = default(bool),
-                            Comment = default(string),
-                        }
+                        DatabaseEntityProperty = new DynamicEntityDatabaseProperty()
                     }
                 }
         };
@@ -53,7 +39,6 @@ namespace DynamicEntity.Tests.Services
         public void GetTypeWithDynamicProperty_DynamicEntityModel_ReturnNotNull()
         {
             //Arrage
-
             //Act
             var actualType = dynamicTypeFactory.GetTypeWithDynamicProperty(dynamicEntityTestingModel);
             //Assert
@@ -75,24 +60,26 @@ namespace DynamicEntity.Tests.Services
         public void GetTypeWithDynamicProperty_DynamicEntityModel_TypeContainsDeclaredFields()
         {
             //Arrage
-
             //Act
             var actualType = dynamicTypeFactory.GetTypeWithDynamicProperty(dynamicEntityTestingModel);
+            var actualFieldFirst = dynamicEntityTestingModel.Properties.ToArray()[0].GetValidFieldName();
+            var actualFieldSecond = dynamicEntityTestingModel.Properties.ToArray()[1].GetValidFieldName();
             //Assert
-            Assert.NotNull(actualType.GetField(dynamicEntityTestingModel.Properties.ToArray()[0].GetValidFieldName()));
-            Assert.NotNull(actualType.GetField(dynamicEntityTestingModel.Properties.ToArray()[1].GetValidFieldName()));
+            Assert.NotNull(actualType.GetField(actualFieldFirst));
+            Assert.NotNull(actualType.GetField(actualFieldSecond));
         }
 
         [Fact]
         public void GetTypeWithDynamicProperty_DynamicEntityModel_TypeContainsDeclaredProperties()
         {
             //Arrage
-
             //Act
             var actualType = dynamicTypeFactory.GetTypeWithDynamicProperty(dynamicEntityTestingModel);
+            var actualPropertyFirst = dynamicEntityTestingModel.Properties.ToArray()[0].GetValidPropertyName();
+            var actualPropertySecond = dynamicEntityTestingModel.Properties.ToArray()[1].GetValidPropertyName();
             //Assert
-            Assert.NotNull(actualType.GetProperty(dynamicEntityTestingModel.Properties.ToArray()[0].GetValidPropertyName()));
-            Assert.NotNull(actualType.GetProperty(dynamicEntityTestingModel.Properties.ToArray()[1].GetValidPropertyName()));
+            Assert.NotNull(actualType.GetProperty(actualPropertyFirst));
+            Assert.NotNull(actualType.GetProperty(actualPropertySecond));
         }
     }
 }

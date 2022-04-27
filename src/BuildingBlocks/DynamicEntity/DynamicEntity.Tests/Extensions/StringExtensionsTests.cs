@@ -3,7 +3,7 @@ using DynamicEntity.Extensions;
 
 namespace DynamicEntity.Tests.Extensions
 {
-    public class StringExtensionsTestingClass
+    public class StringExtensionsTests
     {
         [Fact]
         public void CapitalizedString_WordInBadCase_ReturnCamelCaseString()

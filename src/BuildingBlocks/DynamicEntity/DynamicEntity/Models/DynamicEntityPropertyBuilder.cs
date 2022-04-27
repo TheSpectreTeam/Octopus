@@ -3,8 +3,8 @@
     internal class DynamicEntityPropertyBuilder : DynamicEntityMethodBuilder
     {
         internal PropertyBuilder PropertyBuilder { get; }
-        private readonly PropertyAttributes PropertyAttributes;
-        private readonly Type[]? ParameterTypes;
+        private readonly PropertyAttributes _propertyAttributes;
+        private readonly Type[]? _parameterTypes;
 
         internal DynamicEntityPropertyBuilder(TypeBuilder typeBuilder, 
             DynamicEntityModelProperty propertyField,
@@ -12,8 +12,8 @@
             PropertyAttributes propertyAttributes = PropertyAttributes.HasDefault) 
             : base(typeBuilder, propertyField) 
         {
-            PropertyAttributes = propertyAttributes;
-            ParameterTypes = parameterTypes;
+            _propertyAttributes = propertyAttributes;
+            _parameterTypes = parameterTypes;
             PropertyBuilder = GetPropertyBuilder();
         }
 
@@ -41,7 +41,7 @@
             => base.TypeBuilder.DefineProperty(
                 name: base.PropertyField.GetValidPropertyName(),
                 returnType: base.PropertyField.SystemType,
-                attributes: PropertyAttributes,
-                parameterTypes: ParameterTypes);
+                attributes: _propertyAttributes,
+                parameterTypes: _parameterTypes);
     }
 }

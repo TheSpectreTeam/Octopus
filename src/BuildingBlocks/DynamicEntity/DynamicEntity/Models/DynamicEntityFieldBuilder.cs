@@ -15,7 +15,7 @@
             FieldBuilder = GetFieldBuilder();
         }
 
-        internal FieldBuilder GetFieldBuilder()
+        private FieldBuilder GetFieldBuilder()
             => base.TypeBuilder.DefineField(
                 type: base.PropertyField.SystemType,
                 fieldName: base.PropertyField.GetValidFieldName(),

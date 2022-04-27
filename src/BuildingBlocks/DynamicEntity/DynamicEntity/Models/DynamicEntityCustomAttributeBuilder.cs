@@ -4,7 +4,7 @@ namespace DynamicEntity.Models
 {
     internal class DynamicEntityCustomAttributeBuilder : DynamicEntityBuilderBase
     {
-        private Type AttributeType = typeof(DisplayNameAttribute);
+        private readonly Type _attributeType = typeof(DisplayNameAttribute);
         internal CustomAttributeBuilder CustomAttributeBuilder => GetCustomAttributeBuilder();
 
         internal DynamicEntityCustomAttributeBuilder(TypeBuilder typeBuilder,
@@ -13,7 +13,7 @@ namespace DynamicEntity.Models
 
         private CustomAttributeBuilder GetCustomAttributeBuilder()
             => new CustomAttributeBuilder(
-                con: AttributeType.GetConstructor(new[] { typeof(string) }),
+                con: _attributeType.GetConstructor(new[] { typeof(string) }),
                 constructorArgs: new object[] { base.PropertyField.GetValidPropertyName() },
                 namedProperties: new PropertyInfo[] { },
                 propertyValues: new object[] { });

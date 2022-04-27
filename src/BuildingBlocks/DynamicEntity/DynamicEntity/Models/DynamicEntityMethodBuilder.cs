@@ -26,7 +26,7 @@
             return methodBuilder;
         }
 
-        internal string GetMethodName(string methodName) 
+        private string GetMethodName(string methodName) 
             => $"{methodName.ToLower()}_{base.PropertyField.GetValidPropertyName()}";
     }
 }
