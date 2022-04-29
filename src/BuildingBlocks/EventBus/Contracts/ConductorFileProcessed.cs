@@ -1,6 +1,6 @@
-﻿namespace MassTransit.Contracts.Loader
+﻿namespace Contracts
 {
-    public interface ILoaderEntityDescription
+    public interface ConductorFileProcessed
     {
         Guid Id { get; set; }
 

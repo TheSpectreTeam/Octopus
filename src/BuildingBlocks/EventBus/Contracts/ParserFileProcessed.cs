@@ -1,6 +1,6 @@
-﻿namespace MassTransit.Contracts
+﻿namespace Contracts
 {
-    public interface IParserEntityDescription
+    public interface ParserFileProcessed
     {
         Guid Id { get; set; }
 

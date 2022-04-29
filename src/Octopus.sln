@@ -31,9 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicEntity", "BuildingBl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicEntity.Tests", "BuildingBlocks\DynamicEntity\DynamicEntity.Tests\DynamicEntity.Tests.csproj", "{4DA37D8E-B24C-43E4-95CC-902353BCE2FA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MassTransit", "MassTransit", "{B340EF87-E96D-4D5A-8624-43162F53D234}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "EventBus", "{B340EF87-E96D-4D5A-8624-43162F53D234}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.Contracts", "MassTransit.Contracts\MassTransit.Contracts.csproj", "{5E62746B-D72C-4ACF-B51B-5CD493B26DB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "BuildingBlocks\EventBus\Contracts\Contracts.csproj", "{5E62746B-D72C-4ACF-B51B-5CD493B26DB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
