@@ -1,12 +1,10 @@
-﻿using Common.Models.DomainModels;
-
-namespace Repository.Base.Abstractions
+﻿namespace Repository.Base.Abstractions
 {
-    public interface IRepositoryBase<T> where T : BaseEntity
+    public interface IRepositoryBase<T> where T : class
     {
-        Task CreateAsync(T item);
-        Task RemoveAsync(int id);
-        Task<T> GetAsync(int id);
+        Task CreateAsync(T entity);
+        Task DeleteByIdAsync(object id);
+        Task<T> GetByIdAsync(object id);
         Task<IEnumerable<T>> GetAllAsync();
     }
 }
