@@ -5,6 +5,7 @@ global using System.Reflection;
 global using MongoDB.Bson;
 global using MongoDB.Driver;
 global using MongoDB.Driver.Linq;
+global using Repository.MongoDb.Context;
 global using Repository.MongoDb.Models;
 global using Repository.MongoDb.Abstractions;
 global using Repository.MongoDb.Repositories;

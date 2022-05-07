@@ -1,4 +1,6 @@
-﻿namespace Repository.MongoDb.Context
+﻿using Repository.MongoDb.Extensions;
+
+namespace Repository.MongoDb.Context
 {
     public class MongoDbContext<T> : IMongoDbContext<T> where T : IMongoEntityBase
     {
@@ -8,6 +10,8 @@
         {
             var client = new MongoClient(mongoDatabaseConfiguration.ConnectionString);
             _database = client.GetDatabase(mongoDatabaseConfiguration.DatabaseName);
+            if (!_database.IsConnectionSuccess())
+                throw new MongoConfigurationException(nameof(mongoDatabaseConfiguration));
         }
 
         public IMongoCollection<T> GetMongoCollection()
