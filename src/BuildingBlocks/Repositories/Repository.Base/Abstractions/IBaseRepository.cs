@@ -1,6 +1,6 @@
 ﻿namespace Repository.Base.Abstractions
 {
-    public interface IRepositoryBase<T> where T : class
+    public interface IBaseRepository<T> where T : IBaseEntity
     {
         Task CreateAsync(T entity);
         Task DeleteByIdAsync(object id);

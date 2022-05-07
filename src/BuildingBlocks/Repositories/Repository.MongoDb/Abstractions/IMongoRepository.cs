@@ -1,6 +1,6 @@
 ﻿namespace Repository.MongoDb.Abstractions
 {
-    public interface IMongoRepository<T> : IRepositoryBase<T> where T : MongoEntityBase
+    public interface IMongoRepository<T> : IBaseRepository<T> where T : IMongoEntityBase
     {
         IQueryable<T> AsQueryable();
         Task<T> GetOneAsync(Expression<Func<T, bool>> filterExpression);

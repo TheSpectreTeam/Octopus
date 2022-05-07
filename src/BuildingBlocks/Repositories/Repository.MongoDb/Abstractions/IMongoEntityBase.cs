@@ -1,6 +1,6 @@
 ﻿namespace Repository.MongoDb.Abstractions
 {
-    public interface IMongoEntityBase
+    public interface IMongoEntityBase : IBaseEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]

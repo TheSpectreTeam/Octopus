@@ -1,6 +1,6 @@
 ﻿namespace Repository.MongoDb.Repositories
 {
-    public class MongoRepository<T> : IMongoRepository<T> where T : MongoEntityBase
+    public class MongoRepository<T> : IMongoRepository<T> where T : IMongoEntityBase
     {
         private readonly IMongoCollection<T> _collection;
 
@@ -67,7 +67,7 @@
                 await _collection
                     .DeleteOneAsync(fiter);
             }
-            else throw new ArgumentException($"Unexpected argument type: {id.GetType()}");
+            else throw new ArgumentException(nameof(id));
         }
 
         public async Task DeleteOneAsync(Expression<Func<T, bool>> filterExpression)
