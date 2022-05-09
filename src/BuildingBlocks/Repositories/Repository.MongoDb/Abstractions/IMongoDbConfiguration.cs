@@ -2,8 +2,8 @@
 {
     public interface IMongoDbConfiguration
     {
-        string? DatabaseName { get; set; }
-        string? ServerIp { get; set; }
+        string DatabaseName { get; set; }
+        string ServerIp { get; set; }
         int? Port { get; set; }
         string ConnectionString { get; }
     }
