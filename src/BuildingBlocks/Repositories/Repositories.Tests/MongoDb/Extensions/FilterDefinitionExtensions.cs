@@ -8,8 +8,9 @@
             {
                 return f.Expression.Compile();
             }
-            var fieldValue = filter.GetPrivateFieldValue<ExpressionFieldDefinition<I, bool>, I>("_field");
-            return fieldValue.Expression.Compile();
+            var fieldValue = filter.GetPrivateFieldValue<ObjectId, I>("_value");
+            bool predicate(I item) => item.Id.Equals(fieldValue);
+            return predicate;
         }
 
         internal static T GetPrivateFieldValue<T, I>(this FilterDefinition<I> filter, string fieldName) where I : MongoEntityBase

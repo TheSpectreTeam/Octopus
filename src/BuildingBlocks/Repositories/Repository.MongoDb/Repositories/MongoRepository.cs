@@ -14,7 +14,7 @@
 
         public async Task CreateAsync(T entity)
         {
-            if (entity == null) 
+            if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
             await _collection
                 .InsertOneAsync(entity);
@@ -22,7 +22,7 @@
 
         public async Task CreateManyAsync(IEnumerable<T> entities)
         {
-            if (_collection == null) 
+            if (_collection == null)
                 throw new ArgumentNullException(nameof(entities));
             await _collection
                 .InsertManyAsync(entities);
@@ -34,8 +34,8 @@
                 throw new ArgumentNullException(nameof(id));
             if (id is ObjectId i)
             {
-                var fiter = Builders<T>.Filter.Eq(item => item.Id.Equals(i), true);
-                return await _collection.Find(fiter).SingleOrDefaultAsync();
+                var filter = Builders<T>.Filter.Eq(item => item.Id, i);
+                return await _collection.Find(filter).SingleOrDefaultAsync();
             }
             throw new ArgumentException(nameof(id));
         }
@@ -52,27 +52,27 @@
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
-            var fiter = Builders<T>.Filter.Eq(item => item.Id.Equals(entity.Id), true);
+            var filter = Builders<T>.Filter.Eq(item => item.Id, entity.Id);
             return await _collection
-                .FindOneAndReplaceAsync(fiter, entity);
+                .FindOneAndReplaceAsync(filter, entity);
         }
 
         public async Task DeleteByIdAsync(object id)
         {
-            if (id == null) 
+            if (id == null)
                 throw new ArgumentNullException(nameof(id));
             if (id is ObjectId i)
             {
-                var fiter = Builders<T>.Filter.Eq(item => item.Id.Equals(i), true);
+                var filter = Builders<T>.Filter.Eq(item => item.Id, i);
                 await _collection
-                    .DeleteOneAsync(fiter);
+                    .DeleteOneAsync(filter);
             }
             else throw new ArgumentException(nameof(id));
         }
 
         public async Task DeleteOneAsync(Expression<Func<T, bool>> filterExpression)
         {
-            if (filterExpression == null) 
+            if (filterExpression == null)
                 throw new ArgumentNullException(nameof(filterExpression));
             await _collection
                 .DeleteOneAsync(filterExpression);
@@ -80,10 +80,10 @@
 
         public async Task DeleteManyAsync(Expression<Func<T, bool>> filterExpression)
         {
-            if (filterExpression == null) 
+            if (filterExpression == null)
                 throw new ArgumentNullException(nameof(filterExpression));
             await _collection
                 .DeleteManyAsync(filterExpression);
-        } 
+        }
     }
 }
