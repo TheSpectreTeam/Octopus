@@ -14,76 +14,58 @@
 
         public async Task CreateAsync(T entity)
         {
-            if (entity == null)
-                throw new ArgumentNullException(nameof(entity));
-            await _collection
-                .InsertOneAsync(entity);
+            MongoGuard.ArgumentNotNull(entity, nameof(entity));
+            await _collection.InsertOneAsync(entity);
         }
 
         public async Task CreateManyAsync(IEnumerable<T> entities)
         {
-            if (_collection == null)
-                throw new ArgumentNullException(nameof(entities));
-            await _collection
-                .InsertManyAsync(entities);
+            MongoGuard.ArgumentNotNull(_collection, nameof(entities));
+            await _collection.InsertManyAsync(entities);
         }
 
         public async Task<T> GetByIdAsync(object id)
         {
-            if (id == null)
-                throw new ArgumentNullException(nameof(id));
-            if (id is ObjectId i)
-            {
-                var filter = Builders<T>.Filter.Eq(item => item.Id, i);
-                return await _collection.Find(filter).SingleOrDefaultAsync();
-            }
-            throw new ArgumentException(nameof(id));
+            MongoGuard.ArgumentNotNull(id, nameof(id));
+            MongoGuard.ArgumentIsObjectId(id, nameof(id));
+            var filter = Builders<T>.Filter.Eq(item => item.Id, id as string);
+            return await _collection.Find(filter).SingleOrDefaultAsync();
         }
 
         public async Task<T> GetOneAsync(Expression<Func<T, bool>> filterExpression)
-            => await _collection
-                .Find(filterExpression).SingleOrDefaultAsync();
+        {
+            MongoGuard.ArgumentNotNull(filterExpression, nameof(filterExpression));
+            return await _collection.Find(filterExpression).SingleOrDefaultAsync();
+        }
 
         public async Task<IEnumerable<T>> GetAllAsync()
-            => await _collection
-                .Find(_ => true).ToListAsync();
+            => await _collection.Find(_ => true).ToListAsync();
 
         public async Task<T> ReplaceOneAsync(T entity)
         {
-            if (entity == null)
-                throw new ArgumentNullException(nameof(entity));
+            MongoGuard.ArgumentNotNull(entity, nameof(entity));
             var filter = Builders<T>.Filter.Eq(item => item.Id, entity.Id);
-            return await _collection
-                .FindOneAndReplaceAsync(filter, entity);
+            return await _collection.FindOneAndReplaceAsync(filter, entity);
         }
 
         public async Task DeleteByIdAsync(object id)
         {
-            if (id == null)
-                throw new ArgumentNullException(nameof(id));
-            if (id is ObjectId i)
-            {
-                var filter = Builders<T>.Filter.Eq(item => item.Id, i);
-                await _collection
-                    .DeleteOneAsync(filter);
-            }
-            else throw new ArgumentException(nameof(id));
+            MongoGuard.ArgumentNotNull(id, nameof(id));
+            MongoGuard.ArgumentIsObjectId(id, nameof(id));
+            var filter = Builders<T>.Filter.Eq(item => item.Id, id as string);
+            await _collection.DeleteOneAsync(filter);
         }
 
         public async Task DeleteOneAsync(Expression<Func<T, bool>> filterExpression)
         {
-            if (filterExpression == null)
-                throw new ArgumentNullException(nameof(filterExpression));
-            await _collection
-                .DeleteOneAsync(filterExpression);
+            MongoGuard.ArgumentNotNull(filterExpression, nameof(filterExpression));
+            await _collection.DeleteOneAsync(filterExpression);
         }
 
         public async Task DeleteManyAsync(Expression<Func<T, bool>> filterExpression)
         {
-            if (filterExpression == null)
-                throw new ArgumentNullException(nameof(filterExpression));
-            await _collection
-                .DeleteManyAsync(filterExpression);
+            MongoGuard.ArgumentNotNull(filterExpression, nameof(filterExpression));
+            await _collection.DeleteManyAsync(filterExpression);
         }
     }
 }

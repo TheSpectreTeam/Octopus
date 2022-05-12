@@ -8,7 +8,7 @@
             {
                 return f.Expression.Compile();
             }
-            var fieldValue = filter.GetPrivateFieldValue<ObjectId, I>("_value");
+            var fieldValue = filter.GetPrivateFieldValue<string, I>("_value");
             bool predicate(I item) => item.Id.Equals(fieldValue);
             return predicate;
         }
