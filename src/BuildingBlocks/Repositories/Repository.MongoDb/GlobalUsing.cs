@@ -1,5 +1,6 @@
 ﻿global using MongoDB.Bson;
 global using MongoDB.Driver;
+global using Ardalis.GuardClauses;
 global using System.Linq.Expressions;
 global using Repository.Base.Abstractions;
 global using Repository.MongoDb.Models;
