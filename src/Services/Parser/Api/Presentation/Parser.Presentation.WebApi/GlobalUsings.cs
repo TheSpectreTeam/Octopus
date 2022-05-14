@@ -2,3 +2,11 @@
 global using FluentValidation;
 global using System.Reflection;
 global using Parser.Core.Application.Behaviours;
+global using Parser.Core.Application.Queries.GetAllParserDynamicEntityModels;
+global using Microsoft.AspNetCore.Mvc;
+global using Parser.Core.Application.Commands.CreateManyParserDynamicEntityModels;
+global using Parser.Core.Application.Commands.CreateParserDynamicEntityModel;
+global using Parser.Core.Application.Commands.DeleteParserDynamicEntityModelById;
+global using Parser.Core.Application.Commands.ReplaceOneParserDynamicEntityModel;
+global using Parser.Core.Application.Models;
+global using Parser.Core.Application.Queries.GetParserDynamicEntityModelById;
