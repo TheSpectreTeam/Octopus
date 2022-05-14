@@ -27,7 +27,7 @@
         public async Task<T> GetByIdAsync(object id)
         {
             Guard.Against.Null(id, nameof(id));
-            Guard.Against.IsObjectId(id, nameof(id));
+            Guard.Against.InvalidObjectId(id, nameof(id));
             var filter = Builders<T>.Filter.Eq(item => item.Id, id as string);
             return await _collection.Find(filter).SingleOrDefaultAsync();
         }
@@ -51,7 +51,7 @@
         public async Task DeleteByIdAsync(object id)
         {
             Guard.Against.Null(id, nameof(id));
-            Guard.Against.IsObjectId(id, nameof(id));
+            Guard.Against.InvalidObjectId(id, nameof(id));
             var filter = Builders<T>.Filter.Eq(item => item.Id, id as string);
             await _collection.DeleteOneAsync(filter);
         }

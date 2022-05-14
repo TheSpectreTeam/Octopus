@@ -2,7 +2,7 @@
 {
     internal static class MongoGuard
     {
-        internal static void IsObjectId(this IGuardClause guardClause, object argumentValue, string argumentName)
+        internal static void InvalidObjectId(this IGuardClause guardClause, object argumentValue, string argumentName)
         {
             var value = argumentValue as string ?? throw new ArgumentException(argumentName);
             var etaloneObjectIdLenth = new ObjectId().ToString().Length;
