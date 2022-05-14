@@ -7,24 +7,22 @@ namespace Repositories.Tests.MongoDb
 {
     public class MongoRepositoryTests
     {
+        private readonly string _id;
+
         private List<TestEntity> _mockEntitiesList;
 
         private Mock<IAsyncCursor<TestEntity>> _mockAsyncCursor;
         private Mock<IMongoDbContext<TestEntity>> _mockMongoContext;
         private Mock<IMongoCollection<TestEntity>> _mockMongoCollection;
-        
-        private string Id = "569ed8269353e9f4c51617aa";
-        private ObjectId _objectId;
 
         private readonly TestEntity _entity;
 
         public MongoRepositoryTests()
         {
-            _objectId = new ObjectId(Id);
-
+            _id = "569ed8269353e9f4c51617aa";
             _entity = new TestEntity
             {
-                Id = _objectId,
+                Id = _id,
                 Name = "testEntity"
             };
 
@@ -130,7 +128,7 @@ namespace Repositories.Tests.MongoDb
             var repository = new MongoRepository<TestEntity>(_mockMongoContext.Object);
             var newEntity = new TestEntity
             {
-                Id = new ObjectId(),
+                Id = new ObjectId().ToString(),
                 Name = "NewTestEntity"
             };
 
@@ -164,12 +162,12 @@ namespace Repositories.Tests.MongoDb
             {
                 new TestEntity
                 {
-                    Id = new ObjectId(),
+                    Id = new ObjectId().ToString(),
                     Name = "First entity"
                 },
                 new TestEntity
                 {
-                    Id = new ObjectId(),
+                    Id = new ObjectId().ToString(),
                     Name = "Second entity"
                 }
             };
@@ -206,11 +204,11 @@ namespace Repositories.Tests.MongoDb
             var repository = new MongoRepository<TestEntity>(_mockMongoContext.Object);
 
             //Act
-            var result = await repository.GetByIdAsync(_objectId);
+            var result = await repository.GetByIdAsync(_id);
 
             //Assert
             Assert.NotNull(result);
-            Assert.Equal(_objectId, result.Id);
+            Assert.Equal(_id, result.Id);
         }
 
         [Fact]
@@ -247,7 +245,7 @@ namespace Repositories.Tests.MongoDb
             var repository = new MongoRepository<TestEntity>(_mockMongoContext.Object);
 
             //Act
-            var result = await repository.GetOneAsync(i => i.Id.Equals(_objectId));
+            var result = await repository.GetOneAsync(i => i.Id.Equals(_id));
 
             //Assert
             Assert.NotNull(result);
@@ -292,7 +290,7 @@ namespace Repositories.Tests.MongoDb
             var repository = new MongoRepository<TestEntity>(_mockMongoContext.Object);
             var expected = new TestEntity
             {
-                Id = _objectId,
+                Id = _id,
                 Name = "Updated Entity"
             };
 
@@ -327,7 +325,7 @@ namespace Repositories.Tests.MongoDb
             var repository = new MongoRepository<TestEntity>(_mockMongoContext.Object);
 
             //Act
-            await repository.DeleteByIdAsync(_objectId);
+            await repository.DeleteByIdAsync(_id);
             var actual = await repository.GetAllAsync();
 
             //Assert
@@ -368,7 +366,7 @@ namespace Repositories.Tests.MongoDb
             var repository = new MongoRepository<TestEntity>(_mockMongoContext.Object);
 
             //Act
-            await repository.DeleteOneAsync(i => i.Id.Equals(_objectId));
+            await repository.DeleteOneAsync(i => i.Id.Equals(_id));
             var actual = await repository.GetAllAsync();
 
             //Assert
@@ -395,7 +393,7 @@ namespace Repositories.Tests.MongoDb
             var repository = new MongoRepository<TestEntity>(_mockMongoContext.Object);
 
             //Act
-            await repository.DeleteManyAsync(i => i.Id.Equals(_objectId));
+            await repository.DeleteManyAsync(i => i.Id.Equals(_id));
             var actual = await repository.GetAllAsync();
 
             //Assert

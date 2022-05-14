@@ -2,7 +2,8 @@
 {
     public class MongoEntityBase : IMongoEntityBase
     {
-        public ObjectId Id { get; set; }
-        public DateTime CreateAt => Id.CreationTime;
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
     }
 }
