@@ -7,11 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\BuildingBlocks\Repositories\Repository.MongoDb\Repository.MongoDb.csproj" />
+    <ProjectReference Include="..\..\Core\Loader.Core.Application\Loader.Core.Application.csproj" />
   </ItemGroup>
 
 </Project>
