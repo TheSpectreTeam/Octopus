@@ -9,6 +9,8 @@ if (app.Environment.IsDevelopment())
     app.ConfigureSwagger();
 }
 
+app.UseErrorHandlingMiddleware();
+
 new LoaderDynamicEntityModelApi().Register(app);
 
 app.Run();
