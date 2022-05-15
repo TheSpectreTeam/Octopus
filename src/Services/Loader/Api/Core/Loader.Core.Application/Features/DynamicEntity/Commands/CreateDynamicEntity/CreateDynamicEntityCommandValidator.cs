@@ -1,8 +1,8 @@
 ﻿namespace Loader.Core.Application.Features.DynamicEntity.Commands.CreateDynamicEntity
 {
-    public class CreateDynamicEntityValidator : AbstractValidator<CreateDynamicEntityCommand>
+    public class CreateDynamicEntityCommandValidator : AbstractValidator<CreateDynamicEntityCommand>
     {
-        public CreateDynamicEntityValidator()
+        public CreateDynamicEntityCommandValidator()
         {
             RuleFor(_ => _.EntityName)
                 .NotNull()

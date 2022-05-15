@@ -5,5 +5,3 @@ global using Loader.Presentation.WebApi.Apis;
 global using Loader.Presentation.WebApi.Extensions;
 global using Loader.Presentation.WebApi.Configuration.Ioc;
 global using Loader.Presentation.WebApi.Configuration.Swagger;
-global using Loader.Core.Application.Features.DynamicEntity.Commands.CreateDynamicEntity;
-global using Loader.Core.Application.Features.DynamicEntity.Commands.DeleteDynamicEntity;

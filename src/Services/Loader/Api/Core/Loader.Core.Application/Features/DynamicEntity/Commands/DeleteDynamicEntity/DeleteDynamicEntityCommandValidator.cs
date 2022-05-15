@@ -1,8 +1,8 @@
 ﻿namespace Loader.Core.Application.Features.DynamicEntity.Commands.DeleteDynamicEntity
 {
-    public class DeleteDynamicEntityValidator : AbstractValidator<DeleteDynamicEntityCommand>
+    public class DeleteDynamicEntityCommandValidator : AbstractValidator<DeleteDynamicEntityCommand>
     {
-        public DeleteDynamicEntityValidator()
+        public DeleteDynamicEntityCommandValidator()
         {
             RuleFor(_ => _.Id)
                 .NotNull()
