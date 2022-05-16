@@ -1,6 +1,4 @@
-﻿using Parser.Core.Application.Models;
-
-namespace Parser.Core.Application.Commands.DeleteParserDynamicEntityModelById
+﻿namespace Parser.Core.Application.Commands.DeleteParserDynamicEntityModelById
 {
     public class DeleteParserDynamicEntityModelByIdCommandHandler
         : IRequestHandler<DeleteParserDynamicEntityModelByIdCommand>

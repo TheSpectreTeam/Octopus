@@ -1,6 +1,4 @@
-﻿using Parser.Core.Application.Models;
-
-namespace Parser.Core.Application.Queries.GetOneParserDynamicEntityModel
+﻿namespace Parser.Core.Application.Queries.GetOneParserDynamicEntityModel
 {
     public class GetOneParserDynamicEntityModelQuery : IRequest<ParserDynamicEntityModel>
     {

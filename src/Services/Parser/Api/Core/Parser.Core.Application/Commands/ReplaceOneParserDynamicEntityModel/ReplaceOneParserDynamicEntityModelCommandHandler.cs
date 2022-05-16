@@ -1,8 +1,6 @@
-﻿using Parser.Core.Application.Models;
-
-namespace Parser.Core.Application.Commands.ReplaceOneParserDynamicEntityModel
+﻿namespace Parser.Core.Application.Commands.ReplaceOneParserDynamicEntityModel
 {
-    internal class ReplaceOneParserDynamicEntityModelCommandHandler
+    public class ReplaceOneParserDynamicEntityModelCommandHandler
         : IRequestHandler<ReplaceOneParserDynamicEntityModelCommand, ParserDynamicEntityModel>
     {
         private readonly IMongoRepository<ParserDynamicEntityModel> _mongoRepository;

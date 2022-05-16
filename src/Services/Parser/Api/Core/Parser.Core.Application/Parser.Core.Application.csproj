@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\BuildingBlocks\Common\Common.Models\Common.Models.csproj" />
     <ProjectReference Include="..\..\..\..\..\BuildingBlocks\Repositories\Repository.MongoDb\Repository.MongoDb.csproj" />
+    <ProjectReference Include="..\Parser.Core.Domain\Parser.Core.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,5 @@
+using Parser.Core.Domain.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
