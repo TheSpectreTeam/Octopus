@@ -4,8 +4,8 @@
     {
         public T Data { get; set; }
         public bool Succeeded { get; set; }
-        public string Message { get; set; }
-        public List<string> Errors { get; set; }
+        public string? Message { get; set; }
+        public IEnumerable<string> Errors { get; set; }
         
         public Response()
         {
@@ -17,7 +17,7 @@
             Message = message;
         }
 
-        public Response(T data, string message = null)
+        public Response(T data, string? message = null)
         {
             Data = data;
             Succeeded = true;

@@ -29,10 +29,7 @@
                 {
                     case ValidationException ex:
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        responseModel.Errors = ex.Errors;
-                        break;
-                    case KeyNotFoundException ex:
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        responseModel.Errors = ex.Errors.Select(_ => _.ErrorMessage);
                         break;
                     default:
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;

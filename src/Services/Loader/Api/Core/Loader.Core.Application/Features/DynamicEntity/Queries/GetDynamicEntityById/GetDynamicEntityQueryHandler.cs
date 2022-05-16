@@ -1,9 +1,7 @@
-﻿using Repository.MongoDb.Abstractions;
-
-namespace Loader.Core.Application.Features.DynamicEntity.Queries.GetDynamicEntityById
+﻿namespace Loader.Core.Application.Features.DynamicEntity.Queries.GetDynamicEntityById
 {
     public class GetDynamicEntityQueryHandler
-        : IRequestHandler<GetDynamicEntityQuery, LoaderDynamicEntity>
+        : IRequestHandler<GetDynamicEntityQuery, Response<LoaderDynamicEntity>>
     {
         private readonly IMongoRepository<LoaderDynamicEntity> _mongoRepository;
 
@@ -12,9 +10,10 @@ namespace Loader.Core.Application.Features.DynamicEntity.Queries.GetDynamicEntit
             _mongoRepository = mongoRepository;
         }
 
-        public async Task<LoaderDynamicEntity> Handle(GetDynamicEntityQuery request, CancellationToken cancellationToken)
+        public async Task<Response<LoaderDynamicEntity>> Handle(GetDynamicEntityQuery request, CancellationToken cancellationToken)
         {
-            return await _mongoRepository.GetByIdAsync(request.Id);
+            var entity = await _mongoRepository.GetByIdAsync(request.Id);
+            return new Response<LoaderDynamicEntity>(data: entity);
         }
     }
 }

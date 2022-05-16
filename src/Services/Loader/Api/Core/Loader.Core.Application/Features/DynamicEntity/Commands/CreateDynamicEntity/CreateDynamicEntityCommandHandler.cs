@@ -1,8 +1,7 @@
-﻿using Repository.MongoDb.Abstractions;
-
-namespace Loader.Core.Application.Features.DynamicEntity.Commands.CreateDynamicEntity
+﻿namespace Loader.Core.Application.Features.DynamicEntity.Commands.CreateDynamicEntity
 {
-    internal class CreateDynamicEntityCommandHandler : IRequestHandler<CreateDynamicEntityCommand>
+    internal class CreateDynamicEntityCommandHandler 
+        : IRequestHandler<CreateDynamicEntityCommand, Response<Unit>>
     {
         private readonly IMapper _mapper;
         private readonly IMongoRepository<LoaderDynamicEntity> _mongoRepository;
@@ -15,11 +14,13 @@ namespace Loader.Core.Application.Features.DynamicEntity.Commands.CreateDynamicE
             _mongoRepository = mongoRepository;
         }
 
-        public async Task<Unit> Handle(CreateDynamicEntityCommand request, CancellationToken cancellationToken)
+        public async Task<Response<Unit>> Handle(CreateDynamicEntityCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<LoaderDynamicEntity>(request);
             await _mongoRepository.CreateAsync(entity);
-            return Unit.Value;
+            return new Response<Unit>(
+                data: Unit.Value,
+                message: ResponseMessages.EntitySuccessfullyCreated);
         }
     }
 }

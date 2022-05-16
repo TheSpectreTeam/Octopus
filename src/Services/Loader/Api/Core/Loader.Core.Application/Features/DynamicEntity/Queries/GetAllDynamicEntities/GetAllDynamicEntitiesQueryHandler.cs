@@ -1,9 +1,7 @@
-﻿using Repository.MongoDb.Abstractions;
-
-namespace Loader.Core.Application.Features.DynamicEntity.Queries.GetAllDynamicEntities
+﻿namespace Loader.Core.Application.Features.DynamicEntity.Queries.GetAllDynamicEntities
 {
     public class GetAllDynamicEntitiesQueryHandler
-        : IRequestHandler<GetAllDynamicEntitiesQuery, IEnumerable<GetAllDynamicEntitiesViewModel>>
+        : IRequestHandler<GetAllDynamicEntitiesQuery, Response<IEnumerable<GetAllDynamicEntitiesViewModel>>>
     {
         private readonly IMapper _mapper;
         private readonly IMongoRepository<LoaderDynamicEntity> _mongoRepository;
@@ -16,10 +14,13 @@ namespace Loader.Core.Application.Features.DynamicEntity.Queries.GetAllDynamicEn
             _mongoRepository = mongoRepository;
         } 
 
-        public async Task<IEnumerable<GetAllDynamicEntitiesViewModel>> Handle(GetAllDynamicEntitiesQuery request, CancellationToken cancellationToken)
+        public async Task<Response<IEnumerable<GetAllDynamicEntitiesViewModel>>> Handle(
+            GetAllDynamicEntitiesQuery request, 
+            CancellationToken cancellationToken)
         {
             var entities = await _mongoRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<GetAllDynamicEntitiesViewModel>>(entities);
+            var resultEntities = _mapper.Map<IEnumerable<GetAllDynamicEntitiesViewModel>>(entities);
+            return new Response<IEnumerable<GetAllDynamicEntitiesViewModel>>(data: resultEntities);
         }
     }
 }

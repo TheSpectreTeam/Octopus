@@ -1,8 +1,7 @@
-﻿using Repository.MongoDb.Abstractions;
-
-namespace Loader.Core.Application.Features.DynamicEntity.Commands.DeleteDynamicEntity
+﻿namespace Loader.Core.Application.Features.DynamicEntity.Commands.DeleteDynamicEntity
 {
-    public class DeleteDynamicEntityCommandHandler : IRequestHandler<DeleteDynamicEntityCommand>
+    public class DeleteDynamicEntityCommandHandler 
+        : IRequestHandler<DeleteDynamicEntityCommand, Response<Unit>>
     {
         private readonly IMongoRepository<LoaderDynamicEntity> _mongoRepository;
 
@@ -11,10 +10,12 @@ namespace Loader.Core.Application.Features.DynamicEntity.Commands.DeleteDynamicE
             _mongoRepository = mongoRepository;
         }
 
-        public async Task<Unit> Handle(DeleteDynamicEntityCommand request, CancellationToken cancellationToken)
+        public async Task<Response<Unit>> Handle(DeleteDynamicEntityCommand request, CancellationToken cancellationToken)
         {
             await _mongoRepository.DeleteByIdAsync(request.Id);
-            return Unit.Value;
+            return new Response<Unit>(
+                data: Unit.Value, 
+                message: ResponseMessages.EntitySuccessfullyDeleted);
         }
     }
 }

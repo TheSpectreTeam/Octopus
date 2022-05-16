@@ -1,6 +1,6 @@
 ﻿namespace Loader.Core.Application.Features.DynamicEntity.Commands.CreateDynamicEntity
 {
-    public class CreateDynamicEntityCommand : IRequest
+    public class CreateDynamicEntityCommand : IRequest<Response<Unit>>
     {
         public string EntityName { get; set; }
         public IEnumerable<DynamicEntityModelProperty> Properties { get; set; }

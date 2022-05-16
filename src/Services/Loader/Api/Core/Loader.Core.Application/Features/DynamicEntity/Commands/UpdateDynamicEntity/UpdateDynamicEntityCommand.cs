@@ -1,6 +1,6 @@
 ﻿namespace Loader.Core.Application.Features.DynamicEntity.Commands.UpdateDynamicEntity
 {
-    public class UpdateDynamicEntityCommand : IRequest<LoaderDynamicEntity>
+    public class UpdateDynamicEntityCommand : IRequest<Response<LoaderDynamicEntity>>
     {
         public string Id { get; set; }
         public string EntityName { get; set; }

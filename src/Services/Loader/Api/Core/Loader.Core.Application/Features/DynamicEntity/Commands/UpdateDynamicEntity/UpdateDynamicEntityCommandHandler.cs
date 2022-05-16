@@ -1,9 +1,7 @@
-﻿using Repository.MongoDb.Abstractions;
-
-namespace Loader.Core.Application.Features.DynamicEntity.Commands.UpdateDynamicEntity
+﻿namespace Loader.Core.Application.Features.DynamicEntity.Commands.UpdateDynamicEntity
 {
     public class UpdateDynamicEntityCommandHandler
-        : IRequestHandler<UpdateDynamicEntityCommand, LoaderDynamicEntity>
+        : IRequestHandler<UpdateDynamicEntityCommand, Response<LoaderDynamicEntity>>
     {
         private readonly IMapper _mapper;
         private readonly IMongoRepository<LoaderDynamicEntity> _mongoRepository;
@@ -15,10 +13,13 @@ namespace Loader.Core.Application.Features.DynamicEntity.Commands.UpdateDynamicE
             _mongoRepository = mongoRepository;
         }
 
-        public async Task<LoaderDynamicEntity> Handle(UpdateDynamicEntityCommand request, CancellationToken cancellationToken)
+        public async Task<Response<LoaderDynamicEntity>> Handle(UpdateDynamicEntityCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<LoaderDynamicEntity>(request);
-            return await _mongoRepository.ReplaceOneAsync(entity);
+            var resultEntity = await _mongoRepository.ReplaceOneAsync(entity);
+            return new Response<LoaderDynamicEntity>(
+                data: resultEntity,
+                message: ResponseMessages.EntitySuccessfullyUpdated);
         }
     }
 }
