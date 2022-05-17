@@ -12,28 +12,59 @@ namespace Loader.Presentation.WebApi.Apis
         {
             app.MapGet(
                 pattern: "/api/dynamicEntity",
-                handler: async (IMediator mediator, CancellationToken cancellationToken) 
-                            => Results.Ok(await mediator.Send(new GetAllDynamicEntitiesQuery(), cancellationToken)));
+                handler: async (IMediator mediator, CancellationToken cancellationToken) => 
+                    await mediator.Send(
+                        request: new GetAllDynamicEntitiesQuery(),
+                        cancellationToken: cancellationToken))
+                .Produces<Response<IEnumerable<LoaderDynamicEntity>>>(StatusCodes.Status200OK)
+                .WithName("GetAllEntities")
+                .WithTags("EntityQueries");
 
             app.MapGet(
                 pattern: "/api/dynamicEntity/{id}",
-                handler: async (string id, IMediator mediator, CancellationToken cancellationToken)
-                            => Results.Ok(await mediator.Send(new GetDynamicEntityQuery { Id = id }, cancellationToken)));
+                handler: async (string id, IMediator mediator, CancellationToken cancellationToken) =>
+                    await mediator.Send(
+                        request: new GetDynamicEntityQuery { Id = id },
+                        cancellationToken: cancellationToken) is Response<LoaderDynamicEntity> entity
+                            ? Results.Ok(entity)
+                            : Results.NotFound())
+                .Produces<Response<LoaderDynamicEntity>>(StatusCodes.Status200OK)
+                .Produces(StatusCodes.Status404NotFound)
+                .WithName("GetEntityById")
+                .WithTags("EntityQueries");
 
             app.MapPost(
                 pattern: "/api/dynamicEntity",
-                handler: async ([FromBody] CreateDynamicEntityCommand command, IMediator mediator, CancellationToken cancellationToken) 
-                            => Results.Ok(await mediator.Send(command, cancellationToken)));
+                handler: async ([FromBody] CreateDynamicEntityCommand command, IMediator mediator, CancellationToken cancellationToken) =>
+                    await mediator.Send(
+                        request: command, 
+                        cancellationToken: cancellationToken))
+                .Produces(StatusCodes.Status201Created)
+                .WithName("AddNewEntity")
+                .WithTags("EntityCommands"); 
 
             app.MapPut(
                 pattern: "/api/dynamicEntity",
-                handler: async ([FromBody] UpdateDynamicEntityCommand command, IMediator mediator, CancellationToken cancellationToken)
-                            => Results.Ok(await mediator.Send(command, cancellationToken)));
+                handler: async ([FromBody] UpdateDynamicEntityCommand command, IMediator mediator, CancellationToken cancellationToken) => 
+                    await mediator.Send(
+                        request: command, 
+                        cancellationToken: cancellationToken) is Response<LoaderDynamicEntity> entity
+                    ? Results.Ok(entity)
+                    : Results.NotFound())
+                .Produces<Response<LoaderDynamicEntity>>(StatusCodes.Status200OK)
+                .Produces(StatusCodes.Status404NotFound)
+                .WithName("UpdateEntity")
+                .WithTags("EntityCommands");
 
             app.MapDelete(
                 pattern: "/api/dynamicEntity/{id}",
-                handler: async (string id, IMediator mediator, CancellationToken cancellationToken)
-                            => Results.Ok(await mediator.Send(new DeleteDynamicEntityCommand { Id = id }, cancellationToken)));
+                handler: async (string id, IMediator mediator, CancellationToken cancellationToken) => 
+                    await mediator.Send(
+                        request: new DeleteDynamicEntityCommand { Id = id }, 
+                        cancellationToken: cancellationToken))
+                .Produces(StatusCodes.Status204NoContent)
+                .WithName("DeleteEntity")
+                .WithTags("EntityCommands");
         }
     }
 }

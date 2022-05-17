@@ -4,6 +4,7 @@ global using System.Text.Json;
 global using FluentValidation;
 global using Repository.MongoDb;
 global using Microsoft.AspNetCore.Mvc;
+global using Loader.Core.Domain.Models;
 global using Loader.Core.Application.Wrappers;
 global using Loader.Presentation.WebApi.Apis;
 global using Loader.Presentation.WebApi.Extensions;
