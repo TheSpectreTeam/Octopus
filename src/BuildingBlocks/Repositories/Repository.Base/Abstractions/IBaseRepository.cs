@@ -2,8 +2,8 @@
 {
     public interface IBaseRepository<T> where T : IBaseEntity
     {
-        Task CreateAsync(T entity);
-        Task DeleteByIdAsync(object id);
+        Task<object> CreateAsync(T entity);
+        Task<bool> DeleteByIdAsync(object id);
         Task<T> GetByIdAsync(object id);
         Task<IEnumerable<T>> GetAllAsync();
     }
