@@ -10,12 +10,16 @@
         }
 
         public IQueryable<T> AsQueryable(
-            AggregateOptions? aggregateOptions = null) => 
+            AggregateOptions? aggregateOptions = null,
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null) =>
             _mongoDbContext
-                .GetMongoCollection()
+                .GetMongoCollection(
+                    databaseSettings: databaseSettings,
+                    collectionSettings: collectionSettings)
                 .AsQueryable(aggregateOptions);
 
-        public async Task<object> CreateAsync(T entity) 
+        public async Task<object> CreateAsync(T entity)
         {
             Guard.Against.Null(entity, nameof(entity));
             await _mongoDbContext
@@ -27,12 +31,16 @@
 
         public async Task<object> CreateAsync(
             T entity,
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null,
             InsertOneOptions? options = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.Against.Null(entity, nameof(entity));
             await _mongoDbContext
-                .GetMongoCollection()
+                .GetMongoCollection(
+                    databaseSettings: databaseSettings,
+                    collectionSettings: collectionSettings)
                 .InsertOneAsync(
                     document: entity,
                     options: options,
@@ -43,12 +51,16 @@
 
         public async Task<IDictionary<int, object>> CreateManyAsync(
             IEnumerable<T> entities,
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null,
             InsertManyOptions? options = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.Against.Null(entities, nameof(entities));
             await _mongoDbContext
-                .GetMongoCollection()
+                .GetMongoCollection(
+                    databaseSettings: databaseSettings,
+                    collectionSettings: collectionSettings)
                 .InsertManyAsync(
                     documents: entities,
                     options: options,
@@ -57,7 +69,7 @@
             var idDictionary = new Dictionary<int, object>();
             for (int i = 0; i < entities.Count(); i++)
             {
-                idDictionary.Add(i, entities.ElementAt(i));
+                idDictionary.Add(i, entities.ElementAt(i).Id);
             }
             return idDictionary;
         }
@@ -79,7 +91,9 @@
         }
 
         public async Task<T> GetByIdAsync(
-            object id, 
+            object id,
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null,
             FindOptions? options = null)
         {
             Guard.Against.Null(id, nameof(id));
@@ -90,7 +104,9 @@
                     field: item => item.Id,
                     value: id as string);
             return await _mongoDbContext
-                .GetMongoCollection()
+                .GetMongoCollection(
+                    databaseSettings: databaseSettings,
+                    collectionSettings: collectionSettings)
                 .Find(
                     filter: filter,
                     options: options)
@@ -98,36 +114,46 @@
         }
 
         public async Task<T> GetOneAsync(
-            Expression<Func<T, bool>> filterExpression, 
+            Expression<Func<T, bool>> filterExpression,
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null,
             FindOptions? options = null)
         {
             Guard.Against.Null(filterExpression, nameof(filterExpression));
             return await _mongoDbContext
-                .GetMongoCollection()
+                .GetMongoCollection(
+                    databaseSettings: databaseSettings,
+                    collectionSettings: collectionSettings)
                 .Find(
                     filter: filterExpression,
                     options: options)
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IReadOnlyList<T>> GetAllAsync()
             => await _mongoDbContext
                 .GetMongoCollection()
                 .Find(
                     filter: _ => true)
                 .ToListAsync();
 
-        public async Task<IEnumerable<T>> GetAllAsync(
+        public async Task<IReadOnlyList<T>> GetAllAsync(
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null,
             FindOptions? options = null)
             => await _mongoDbContext
-                .GetMongoCollection()
+                .GetMongoCollection(
+                    databaseSettings: databaseSettings,
+                    collectionSettings: collectionSettings)
                 .Find(
                     filter: _ => true,
                     options: options)
                 .ToListAsync();
 
         public async Task<T> ReplaceOneAsync(
-            T entity, 
+            T entity,
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null,
             FindOneAndReplaceOptions<T, T>? options = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -138,9 +164,11 @@
                     field: item => item.Id,
                     value: entity.Id);
             return await _mongoDbContext
-                .GetMongoCollection()
+                .GetMongoCollection(
+                    databaseSettings: databaseSettings,
+                    collectionSettings: collectionSettings)
                 .FindOneAndReplaceAsync(
-                    filter: filter, 
+                    filter: filter,
                     replacement: entity,
                     options: options,
                     cancellationToken: cancellationToken);
@@ -165,6 +193,8 @@
 
         public async Task<bool> DeleteByIdAsync(
             object id,
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.Against.Null(id, nameof(id));
@@ -175,7 +205,9 @@
                     field: item => item.Id,
                     value: id as string);
             var deleteResult = await _mongoDbContext
-                .GetMongoCollection()
+                .GetMongoCollection(
+                    databaseSettings: databaseSettings,
+                    collectionSettings: collectionSettings)
                 .DeleteOneAsync(
                     filter: filter,
                     cancellationToken: cancellationToken);
@@ -185,11 +217,15 @@
 
         public async Task<bool> DeleteOneAsync(
             Expression<Func<T, bool>> filterExpression,
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.Against.Null(filterExpression, nameof(filterExpression));
             var deleteResult = await _mongoDbContext
-                .GetMongoCollection()
+                .GetMongoCollection(
+                    databaseSettings: databaseSettings,
+                    collectionSettings: collectionSettings)
                 .DeleteOneAsync(
                     filter: filterExpression,
                     cancellationToken: cancellationToken);
@@ -199,12 +235,16 @@
 
         public async Task<long> DeleteManyAsync(
             Expression<Func<T, bool>> filterExpression,
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null,
             DeleteOptions? options = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.Against.Null(filterExpression, nameof(filterExpression));
             var deleteResult = await _mongoDbContext
-                .GetMongoCollection()
+                .GetMongoCollection(
+                    databaseSettings: databaseSettings,
+                    collectionSettings: collectionSettings)
                 .DeleteManyAsync(
                     filter: filterExpression,
                     options: options,

@@ -3,21 +3,14 @@
     public static class MongoDatabaseExtensions
     {
         /// <summary>
-        /// Mongo Database Connectivity Extension
+        /// Mongo database connectivity extension.
         /// </summary>
         /// <param name="mongoDatabase"></param>
-        /// <param name="readPreference"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns>Connecting is possible or not</returns>
-        public static bool IsConnectionSuccess(
-            this IMongoDatabase mongoDatabase, 
-            ReadPreference? readPreference = null, 
-            CancellationToken cancellationToken = default(CancellationToken)) 
-            => mongoDatabase
+        /// <returns>Connecting is possible or not.</returns>
+        public static bool IsConnectionSuccess(this IMongoDatabase mongoDatabase) =>
+            mongoDatabase
                 .RunCommandAsync(
-                    command: (Command<BsonDocument>)"{ping:1}",
-                    readPreference: readPreference,
-                    cancellationToken: cancellationToken)
+                    command: (Command<BsonDocument>)"{ping:1}")
                 .Wait(1000);
     }
 }

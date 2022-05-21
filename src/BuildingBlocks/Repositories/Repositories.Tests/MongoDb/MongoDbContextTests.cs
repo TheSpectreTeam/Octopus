@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-
-namespace Repositories.Tests.MongoDb
+﻿namespace Repositories.Tests.MongoDb
 {
     public class MongoDbContextTests
     {
@@ -30,7 +28,8 @@ namespace Repositories.Tests.MongoDb
             var configuration = new MongoDbConfiguration { Port = 1 };
 
             //Act
-            var actual = () => new MongoDbContext<TestEntity>(configuration);
+            var context = new MongoDbContext<TestEntity>(configuration);
+            var actual = () => context.GetMongoCollection();
 
             //Assert
             Assert.Throws<MongoConfigurationException>(actual);
@@ -40,7 +39,7 @@ namespace Repositories.Tests.MongoDb
         public void MongoDbContext_NullMongoDbConfiguration_ThrowNullReferenceException()
         {
             //Arrage
-            
+
             //Act
             var actual = () => new MongoDbContext<TestEntity>(null);
 

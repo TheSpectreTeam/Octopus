@@ -11,23 +11,23 @@
             _mongoClient = new MongoClient(mongoDatabaseConfiguration.ConnectionString);
         }
 
-        /// <summary>
-        /// Method to get Mongo database
-        /// </summary>
-        /// <returns>Mongo database</returns>
-        /// <exception cref="MongoConfigurationException"></exception>
-        private IMongoDatabase GetMongoDatabase()
-            => _mongoClient
-                .GetDatabase(_mongoDatabaseConfiguration.DatabaseName) is IMongoDatabase mongoDatabase
-                    ? mongoDatabase
-                    : throw new MongoConfigurationException(nameof(_mongoDatabaseConfiguration));
+        private IMongoDatabase GetMongoDatabase(MongoDatabaseSettings? databaseSettings = null)
+        {
+            var mongoDatabase = _mongoClient.GetDatabase(
+                name: _mongoDatabaseConfiguration.DatabaseName,
+                settings: databaseSettings);
 
-        /// <summary>
-        /// Method to get Mongo collection
-        /// </summary>
-        /// <returns>Mongo collection</returns>
-        public IMongoCollection<T> GetMongoCollection()
-            => GetMongoDatabase()
-                .GetCollection<T>(typeof(T).Name);
+            return mongoDatabase.IsConnectionSuccess()
+                ? mongoDatabase
+                : throw new MongoConfigurationException(nameof(_mongoDatabaseConfiguration));
+        }
+
+        public IMongoCollection<T> GetMongoCollection(
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null)
+            => GetMongoDatabase(databaseSettings)
+                .GetCollection<T>(
+                name: typeof(T).Name,
+                settings: collectionSettings);
     }
 }
