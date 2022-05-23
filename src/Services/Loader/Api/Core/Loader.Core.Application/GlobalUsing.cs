@@ -1,6 +1,8 @@
 ﻿global using MediatR;
 global using AutoMapper;
+global using MongoDB.Driver;
 global using FluentValidation;
+global using Ardalis.GuardClauses;
 global using Loader.Core.Domain.Models;
 global using Loader.Core.Application.Wrappers;
 global using Loader.Core.Application.Constants;

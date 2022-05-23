@@ -10,7 +10,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseErrorHandlingMiddleware();
-
-new LoaderDynamicEntityModelApi().Register(app);
+app.MapDynamicEntityEndpoints();
 
 app.Run();

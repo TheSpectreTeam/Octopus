@@ -1,8 +1,8 @@
 ﻿namespace Loader.Core.Application.Behaviours
 {
-    public class ValidationBehavior<TRequest, TResponse> :
-        IPipelineBehavior<TRequest, TResponse> where TRequest :
-        IRequest<TResponse>
+    public class ValidationBehavior<TRequest, TResponse>
+        : IPipelineBehavior<TRequest, TResponse> where TRequest 
+        : IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -17,11 +17,18 @@
         {
             if (_validators.Any())
             {
-                var context = new ValidationContext<TRequest>(request);
-                var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
-                var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
-                if (failures.Count != 0)
-                    throw new ValidationException(failures);
+                try
+                {
+                    var context = new ValidationContext<TRequest>(request);
+                    var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
+                    var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
+                    if (failures.Count != 0)
+                        throw new ValidationException(failures);
+                }
+                catch (Exception ex)
+                {
+                    throw new ValidationException(ex.Message);
+                }
             }
             return await next();
         }

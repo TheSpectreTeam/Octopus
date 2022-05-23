@@ -1,26 +1,30 @@
 ﻿namespace Loader.Core.Application.Features.DynamicEntity.Commands.CreateDynamicEntity
 {
-    internal class CreateDynamicEntityCommandHandler 
-        : IRequestHandler<CreateDynamicEntityCommand, Response<Unit>>
+    internal class CreateDynamicEntityCommandHandler
+        : IRequestHandler<CreateDynamicEntityCommand, Response<string>>
     {
         private readonly IMapper _mapper;
         private readonly IMongoRepository<LoaderDynamicEntity> _mongoRepository;
 
         public CreateDynamicEntityCommandHandler(
-            IMapper mapper, 
+            IMapper mapper,
             IMongoRepository<LoaderDynamicEntity> mongoRepository)
         {
             _mapper = mapper;
             _mongoRepository = mongoRepository;
         }
 
-        public async Task<Response<Unit>> Handle(CreateDynamicEntityCommand request, CancellationToken cancellationToken)
+        public async Task<Response<string>> Handle(
+            CreateDynamicEntityCommand request,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
+            Guard.Against.Null(request, nameof(request));
             var entity = _mapper.Map<LoaderDynamicEntity>(request);
-            await _mongoRepository.CreateAsync(entity);
-            return new Response<Unit>(
-                data: Unit.Value,
-                message: ResponseMessages.EntitySuccessfullyCreated);
+            return await _mongoRepository.CreateAsync(entity) is string stringId
+                ? new Response<string>(
+                    data: stringId,
+                    message: ResponseMessages.EntitySuccessfullyCreated)
+                : throw new InvalidOperationException(nameof(CreateDynamicEntityCommand));
         }
     }
 }

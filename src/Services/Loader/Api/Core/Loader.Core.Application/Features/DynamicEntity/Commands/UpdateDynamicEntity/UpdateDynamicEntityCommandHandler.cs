@@ -13,13 +13,23 @@
             _mongoRepository = mongoRepository;
         }
 
-        public async Task<Response<LoaderDynamicEntity>> Handle(UpdateDynamicEntityCommand request, CancellationToken cancellationToken)
+        public async Task<Response<LoaderDynamicEntity>> Handle(
+            UpdateDynamicEntityCommand request,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
+            Guard.Against.Null(request, nameof(request));
             var entity = _mapper.Map<LoaderDynamicEntity>(request);
-            var resultEntity = await _mongoRepository.ReplaceOneAsync(entity);
-            return new Response<LoaderDynamicEntity>(
-                data: resultEntity,
-                message: ResponseMessages.EntitySuccessfullyUpdated);
+            var replaceOptions = new FindOneAndReplaceOptions<LoaderDynamicEntity, LoaderDynamicEntity> 
+            { 
+                ReturnDocument = ReturnDocument.After 
+            };
+            return await _mongoRepository.ReplaceOneAsync(
+                entity: entity,
+                options: replaceOptions) is LoaderDynamicEntity updatedEntity
+                ? new Response<LoaderDynamicEntity>(
+                    data: updatedEntity,
+                    message: ResponseMessages.EntitySuccessfullyUpdated)
+                : throw new InvalidOperationException(nameof(UpdateDynamicEntityCommand));
         }
     }
 }
