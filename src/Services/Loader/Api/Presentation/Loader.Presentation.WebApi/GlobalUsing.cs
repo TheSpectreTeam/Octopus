@@ -6,7 +6,6 @@ global using Repository.MongoDb;
 global using Microsoft.AspNetCore.Mvc;
 global using Loader.Core.Domain.Models;
 global using Loader.Core.Application.Wrappers;
-global using Loader.Presentation.WebApi.Constants;
 global using Loader.Presentation.WebApi.Endpoints;
 global using Loader.Presentation.WebApi.Extensions;
 global using Loader.Presentation.WebApi.Middlewares;
