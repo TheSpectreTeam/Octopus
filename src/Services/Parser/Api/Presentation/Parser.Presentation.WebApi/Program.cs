@@ -1,10 +1,9 @@
-using Parser.Core.Domain.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
@@ -32,13 +31,15 @@ app.MapGet(
 
 app.MapPost(
     pattern: "api/parserDynamicEntityModel",
-    handler: async ([FromBody] ParserDynamicEntityModel model, IMediator mediator, CancellationToken cancellationToken) =>
+    handler: async ([FromBody] CreateParserDynamicEntityModelCommand command, 
+        IMediator mediator, 
+        CancellationToken cancellationToken) =>
     {
-        await mediator.Send(
-            request: new CreateParserDynamicEntityModelCommand() { Model = model },
-            cancellationToken: cancellationToken);
-
-        return Results.Created($"/parserDynamicEntityModel/{model.Id}", model);
+        return await mediator.Send(
+            request: command,
+            cancellationToken: cancellationToken) is Response<string> response
+            ? Results.Created($"api/parserDynamicEntityModel/{response.Data}", response.Data)
+            : Results.BadRequest();
     });
 
 app.MapPost(
@@ -49,7 +50,7 @@ app.MapPost(
             request: new CreateManyParserDynamicEntityModelsCommand() { Models = models },
             cancellationToken: cancellationToken);
 
-        return Results.Created($"/parserDynamicEntityModel/{models[0].Id}", models);
+        return Results.Created($"api/parserDynamicEntityModel/{models[0].Id}", models);
     });
 
 app.MapPut(

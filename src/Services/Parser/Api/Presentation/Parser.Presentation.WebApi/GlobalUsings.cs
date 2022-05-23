@@ -9,3 +9,5 @@ global using Parser.Core.Application.Commands.CreateParserDynamicEntityModel;
 global using Parser.Core.Application.Commands.DeleteParserDynamicEntityModelById;
 global using Parser.Core.Application.Commands.ReplaceOneParserDynamicEntityModel;
 global using Parser.Core.Application.Queries.GetParserDynamicEntityModelById;
+global using Parser.Core.Application.Wrappers;
+global using Parser.Core.Domain.Models;

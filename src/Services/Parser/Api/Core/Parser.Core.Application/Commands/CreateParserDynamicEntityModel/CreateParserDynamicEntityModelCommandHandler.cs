@@ -1,24 +1,32 @@
 ﻿namespace Parser.Core.Application.Commands.CreateParserDynamicEntityModel
 {
     public class CreateParserDynamicEntityModelCommandHandler
-        : IRequestHandler<CreateParserDynamicEntityModelCommand>
+        : IRequestHandler<CreateParserDynamicEntityModelCommand, Response<string>>
     {
+        private readonly IMapper _mapper;
         private readonly IMongoRepository<ParserDynamicEntityModel> _mongoRepository;
 
         public CreateParserDynamicEntityModelCommandHandler(
+            IMapper mapper,
             IMongoRepository<ParserDynamicEntityModel> mongoRepository)
         {
+            _mapper = mapper;
             _mongoRepository = mongoRepository;
         }
 
-        public async Task<Unit> Handle(CreateParserDynamicEntityModelCommand request, 
+        public async Task<Response<string>> Handle(
+            CreateParserDynamicEntityModelCommand request, 
             CancellationToken cancellationToken)
         {
-            await _mongoRepository.CreateAsync(
-                entity: request.Model,
-                cancellationToken: cancellationToken);
+            var entity = _mapper.Map<ParserDynamicEntityModel>(request);
 
-            return Unit.Value;
+            return await _mongoRepository.CreateAsync(
+                entity: entity,
+                cancellationToken: cancellationToken) is string stringId
+                ? new Response<string>(
+                    data: stringId,
+                    message: ResponseMessages.EntitySuccessfullyCreated)
+                : throw new InvalidOperationException(nameof(CreateParserDynamicEntityModelCommand));
         }
     }
 }

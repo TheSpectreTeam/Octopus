@@ -1,7 +1,8 @@
 ﻿namespace Parser.Core.Application.Commands.CreateParserDynamicEntityModel
 {
-    public class CreateParserDynamicEntityModelCommand : IRequest
+    public class CreateParserDynamicEntityModelCommand : IRequest<Response<string>>
     {
-        public ParserDynamicEntityModel Model { get; set; }
+        public string EntityName { get; set; }
+        public IEnumerable<DynamicEntityModelProperty> Properties { get; set; }
     }
 }
