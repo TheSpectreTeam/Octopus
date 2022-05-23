@@ -1,21 +1,33 @@
-﻿using Repository.MongoDb.Extensions;
-
-namespace Repository.MongoDb.Context
+﻿namespace Repository.MongoDb.Context
 {
     public class MongoDbContext<T> : IMongoDbContext<T> where T : IMongoEntityBase
     {
-        private readonly IMongoDatabase _database;
+        private readonly IMongoDbConfiguration _mongoDatabaseConfiguration;
+        private readonly IMongoClient _mongoClient;
 
         public MongoDbContext(IMongoDbConfiguration mongoDatabaseConfiguration)
         {
-            var client = new MongoClient(mongoDatabaseConfiguration.ConnectionString);
-            _database = client.GetDatabase(mongoDatabaseConfiguration.DatabaseName);
-            if (!_database.IsConnectionSuccess())
-                throw new MongoConfigurationException(nameof(mongoDatabaseConfiguration));
+            _mongoDatabaseConfiguration = mongoDatabaseConfiguration;
+            _mongoClient = new MongoClient(mongoDatabaseConfiguration.ConnectionString);
         }
 
-        public IMongoCollection<T> GetMongoCollection()
-        => _database
-            .GetCollection<T>(typeof(T).Name);
+        private IMongoDatabase GetMongoDatabase(MongoDatabaseSettings? databaseSettings = null)
+        {
+            var mongoDatabase = _mongoClient.GetDatabase(
+                name: _mongoDatabaseConfiguration.DatabaseName,
+                settings: databaseSettings);
+
+            return mongoDatabase.IsConnectionSuccess()
+                ? mongoDatabase
+                : throw new MongoConfigurationException(nameof(_mongoDatabaseConfiguration));
+        }
+
+        public IMongoCollection<T> GetMongoCollection(
+            MongoDatabaseSettings? databaseSettings = null,
+            MongoCollectionSettings? collectionSettings = null)
+            => GetMongoDatabase(databaseSettings)
+                .GetCollection<T>(
+                name: typeof(T).Name,
+                settings: collectionSettings);
     }
 }

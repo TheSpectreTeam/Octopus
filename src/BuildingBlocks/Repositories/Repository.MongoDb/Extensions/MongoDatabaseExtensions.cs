@@ -2,9 +2,15 @@
 {
     public static class MongoDatabaseExtensions
     {
-        public static bool IsConnectionSuccess(this IMongoDatabase mongoDatabase) => 
+        /// <summary>
+        /// Mongo database connectivity extension.
+        /// </summary>
+        /// <param name="mongoDatabase"></param>
+        /// <returns>Connecting is possible or not.</returns>
+        public static bool IsConnectionSuccess(this IMongoDatabase mongoDatabase) =>
             mongoDatabase
-                .RunCommandAsync((Command<BsonDocument>)"{ping:1}")
+                .RunCommandAsync(
+                    command: (Command<BsonDocument>)"{ping:1}")
                 .Wait(1000);
     }
 }

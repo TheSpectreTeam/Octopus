@@ -1,9 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
-namespace Repositories.Tests.MongoDb
+﻿namespace Repositories.Tests.MongoDb
 {
     public class MongoRepositoryTests
     {
@@ -14,12 +9,13 @@ namespace Repositories.Tests.MongoDb
         private Mock<IAsyncCursor<TestEntity>> _mockAsyncCursor;
         private Mock<IMongoDbContext<TestEntity>> _mockMongoContext;
         private Mock<IMongoCollection<TestEntity>> _mockMongoCollection;
+        private Mock<DeleteResult> _mockDeleteResult;
 
         private readonly TestEntity _entity;
 
         public MongoRepositoryTests()
         {
-            _id = "569ed8269353e9f4c51617aa";
+            _id = new string('1', 24);
             _entity = new TestEntity
             {
                 Id = _id,
@@ -30,7 +26,10 @@ namespace Repositories.Tests.MongoDb
             _mockMongoCollection = new Mock<IMongoCollection<TestEntity>>();
             _mockAsyncCursor = new Mock<IAsyncCursor<TestEntity>>();
             _mockMongoContext = new Mock<IMongoDbContext<TestEntity>>();
-            _mockMongoContext.Setup(_ => _.GetMongoCollection()).Returns(_mockMongoCollection.Object);
+            _mockDeleteResult = new Mock<DeleteResult>();
+
+            _mockDeleteResult.Setup(_ => _.DeletedCount).Returns(0);
+            _mockMongoContext.Setup(_ => _.GetMongoCollection(null, null)).Returns(_mockMongoCollection.Object);
 
             #region Mock IAsyncCursor
 
@@ -101,20 +100,27 @@ namespace Repositories.Tests.MongoDb
                 {
                     var filteredCollection = _mockEntitiesList.Where(filter.GetFunc());
                     var selectedItem = filteredCollection.FirstOrDefault();
-                    _mockEntitiesList.Remove(selectedItem);
-                });
+                    if (_mockEntitiesList.Remove(selectedItem))
+                        _mockDeleteResult.Setup(_ => _.DeletedCount).Returns(1);
+                })
+                .ReturnsAsync(_mockDeleteResult.Object);
             _mockMongoCollection
                 .Setup(i => i.DeleteManyAsync(It.IsAny<FilterDefinition<TestEntity>>(),
+                It.IsAny<DeleteOptions>(),
                 It.IsAny<CancellationToken>()))
-                .Callback<FilterDefinition<TestEntity>, CancellationToken>(
-                (filter, token) =>
+                .Callback<FilterDefinition<TestEntity>, DeleteOptions, CancellationToken>(
+                (filter, options, token) =>
                 {
+                    int deletedItems = 0;
                     var filteredCollection = _mockEntitiesList.Where(filter.GetFunc());
                     foreach (var item in filteredCollection.ToList())
                     {
                         _mockEntitiesList.Remove(item);
+                        deletedItems++;
                     }
-                });
+                    _mockDeleteResult.Setup(_ => _.DeletedCount).Returns(deletedItems);
+                })
+                .ReturnsAsync(_mockDeleteResult.Object);
 
             #endregion
         }
@@ -325,11 +331,10 @@ namespace Repositories.Tests.MongoDb
             var repository = new MongoRepository<TestEntity>(_mockMongoContext.Object);
 
             //Act
-            await repository.DeleteByIdAsync(_id);
-            var actual = await repository.GetAllAsync();
+            var actual = await repository.DeleteByIdAsync(_id);
 
             //Assert
-            Assert.DoesNotContain(_entity, actual);
+            Assert.True(actual);
         }
 
         [Fact]
@@ -366,11 +371,10 @@ namespace Repositories.Tests.MongoDb
             var repository = new MongoRepository<TestEntity>(_mockMongoContext.Object);
 
             //Act
-            await repository.DeleteOneAsync(i => i.Id.Equals(_id));
-            var actual = await repository.GetAllAsync();
+            var actual = await repository.DeleteOneAsync(i => i.Id.Equals(_id));
 
             //Assert
-            Assert.DoesNotContain(_entity, actual);
+            Assert.True(actual);
         }
 
         [Fact]
@@ -393,11 +397,10 @@ namespace Repositories.Tests.MongoDb
             var repository = new MongoRepository<TestEntity>(_mockMongoContext.Object);
 
             //Act
-            await repository.DeleteManyAsync(i => i.Id.Equals(_id));
-            var actual = await repository.GetAllAsync();
+            var actual = await repository.DeleteManyAsync(i => i.Id.Equals(_id));
 
             //Assert
-            Assert.DoesNotContain(_entity, actual);
+            Assert.Equal(1, actual);
         }
 
         [Fact]

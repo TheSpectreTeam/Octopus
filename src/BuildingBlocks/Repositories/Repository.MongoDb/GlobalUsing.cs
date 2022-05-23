@@ -6,6 +6,7 @@ global using Repository.Base.Abstractions;
 global using Repository.MongoDb.Models;
 global using Repository.MongoDb.Context;
 global using Repository.MongoDb.Helpers;
+global using Repository.MongoDb.Extensions;
 global using Repository.MongoDb.Abstractions;
 global using Repository.MongoDb.Repositories;
 global using MongoDB.Bson.Serialization.Attributes;
