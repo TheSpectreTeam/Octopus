@@ -14,7 +14,9 @@
         public async Task<Unit> Handle(DeleteManyParserDynamicEntityModelCommand request,
             CancellationToken cancellationToken)
         {
-            await _mongoRepository.DeleteManyAsync(request.FilterExpression);
+            await _mongoRepository.DeleteManyAsync(
+                filterExpression: request.FilterExpression,
+                cancellationToken: cancellationToken);
 
             return Unit.Value;
         }

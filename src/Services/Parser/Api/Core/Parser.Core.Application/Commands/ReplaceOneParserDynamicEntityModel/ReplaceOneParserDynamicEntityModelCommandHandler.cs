@@ -14,7 +14,9 @@
         public async Task<ParserDynamicEntityModel> Handle(ReplaceOneParserDynamicEntityModelCommand request, 
             CancellationToken cancellationToken)
         {
-            return await _mongoRepository.ReplaceOneAsync(request.Model);
+            return await _mongoRepository.ReplaceOneAsync(
+                entity: request.Model,
+                cancellationToken: cancellationToken);
         }
     }
 }

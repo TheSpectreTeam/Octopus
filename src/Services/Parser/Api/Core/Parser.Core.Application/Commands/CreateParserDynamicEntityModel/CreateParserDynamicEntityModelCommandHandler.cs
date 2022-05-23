@@ -14,7 +14,9 @@
         public async Task<Unit> Handle(CreateParserDynamicEntityModelCommand request, 
             CancellationToken cancellationToken)
         {
-            await _mongoRepository.CreateAsync(request.Model);
+            await _mongoRepository.CreateAsync(
+                entity: request.Model,
+                cancellationToken: cancellationToken);
 
             return Unit.Value;
         }
