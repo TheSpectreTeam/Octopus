@@ -7,12 +7,12 @@
         {
             var objectIdLengthConstraint = 24;
 
-            RuleFor(command => command.Model).NotEmpty();
-            RuleFor(command => command.Model.Id)
+            RuleFor(command => command).NotEmpty();
+            RuleFor(command => command.Id)
                 .NotEmpty()
                 .Length(objectIdLengthConstraint);
-            RuleFor(command => command.Model.EntityName).NotEmpty();
-            RuleFor(command => command.Model.Properties).NotEmpty();
+            RuleFor(command => command.EntityName).NotEmpty();
+            RuleFor(command => command.Properties).NotEmpty();
         }
     }
 }

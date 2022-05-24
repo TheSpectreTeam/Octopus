@@ -5,7 +5,11 @@
     {
         public GetParserDynamicEntityModelByIdQueryValidator()
         {
-            RuleFor(query => query.Id).NotEmpty();
+            var objectIdLengthConstraint = 24;
+
+            RuleFor(query => query.Id)
+                .NotEmpty()
+                .Length(objectIdLengthConstraint);
         }
     }
 }

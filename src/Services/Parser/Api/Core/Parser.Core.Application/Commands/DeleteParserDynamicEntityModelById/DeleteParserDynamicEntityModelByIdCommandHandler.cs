@@ -1,7 +1,7 @@
 ﻿namespace Parser.Core.Application.Commands.DeleteParserDynamicEntityModelById
 {
     public class DeleteParserDynamicEntityModelByIdCommandHandler
-        : IRequestHandler<DeleteParserDynamicEntityModelByIdCommand>
+        : IRequestHandler<DeleteParserDynamicEntityModelByIdCommand, Response<bool>>
     {
         private readonly IMongoRepository<ParserDynamicEntityModel> _mongoRepository;
 
@@ -11,14 +11,17 @@
             _mongoRepository = mongoRepository;
         }
 
-        public async Task<Unit> Handle(DeleteParserDynamicEntityModelByIdCommand request, 
-            CancellationToken cancellationToken)
+        public async Task<Response<bool>> Handle(
+            DeleteParserDynamicEntityModelByIdCommand request, 
+            CancellationToken cancellationToken = default(CancellationToken))
         {
-            await _mongoRepository.DeleteByIdAsync(
+            return await _mongoRepository.DeleteByIdAsync(
                 id: request.Id,
-                cancellationToken: cancellationToken);
-
-            return Unit.Value;
+                cancellationToken: cancellationToken) is bool isDeleted
+                ? new Response<bool>(
+                    data: isDeleted,
+                    message: ResponseMessages.EntitySuccessfullyDeleted)
+                : throw new InvalidOperationException(nameof(DeleteParserDynamicEntityModelByIdCommand));
         }
     }
 }

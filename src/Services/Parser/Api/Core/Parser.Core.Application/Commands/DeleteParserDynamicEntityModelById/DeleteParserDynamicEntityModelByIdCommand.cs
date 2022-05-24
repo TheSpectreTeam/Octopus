@@ -1,7 +1,7 @@
 ﻿namespace Parser.Core.Application.Commands.DeleteParserDynamicEntityModelById
 {
-    public class DeleteParserDynamicEntityModelByIdCommand : IRequest
+    public class DeleteParserDynamicEntityModelByIdCommand : IRequest<Response<bool>>
     {
-        public object Id { get; set; }
+        public string Id { get; set; }
     }
 }

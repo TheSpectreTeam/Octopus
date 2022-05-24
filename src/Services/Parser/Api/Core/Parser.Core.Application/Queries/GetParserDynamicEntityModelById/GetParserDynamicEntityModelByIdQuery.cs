@@ -1,7 +1,7 @@
 ﻿namespace Parser.Core.Application.Queries.GetParserDynamicEntityModelById
 {
-    public class GetParserDynamicEntityModelByIdQuery : IRequest<ParserDynamicEntityModel>
+    public class GetParserDynamicEntityModelByIdQuery : IRequest<Response<ParserDynamicEntityModel>>
     {
-        public object Id { get; set; }
+        public string Id { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿namespace Parser.Core.Application.Commands.ReplaceOneParserDynamicEntityModel
 {
-    public class ReplaceOneParserDynamicEntityModelCommand : IRequest<ParserDynamicEntityModel>
+    public class ReplaceOneParserDynamicEntityModelCommand : IRequest<Response<ParserDynamicEntityModel>>
     {
-        public ParserDynamicEntityModel Model { get; set; }
+        public string Id { get; set; }
+        public string EntityName { get; set; }
+        public IEnumerable<DynamicEntityModelProperty> Properties { get; set; }
     }
 }

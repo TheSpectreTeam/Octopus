@@ -5,7 +5,11 @@
     {
         public DeleteParserDynamicEntityModelByIdCommandValidator()
         {
-            RuleFor(command => command.Id).NotEmpty();
+            var objectIdLengthConstraint = 24;
+
+            RuleFor(command => command.Id)
+                .NotEmpty()
+                .Length(objectIdLengthConstraint);
         }
     }
 }

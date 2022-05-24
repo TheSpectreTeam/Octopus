@@ -44,35 +44,43 @@ app.MapPost(
 
 app.MapPost(
     pattern: "api/parserDynamicEntityModels",
-    handler: async ([FromBody] List<ParserDynamicEntityModel> models, IMediator mediator, CancellationToken cancellationToken) =>
+    handler: async ([FromBody] CreateManyParserDynamicEntityModelsCommand command, 
+        IMediator mediator, 
+        CancellationToken cancellationToken) =>
     {
-        await mediator.Send(
-            request: new CreateManyParserDynamicEntityModelsCommand() { Models = models },
-            cancellationToken: cancellationToken);
-
-        return Results.Created($"api/parserDynamicEntityModel/{models[0].Id}", models);
+        return await mediator.Send(
+            request: command,
+            cancellationToken: cancellationToken) is Response<IDictionary<int, string>> response
+            ? Results.Created($"api/parserDynamicEntityModels/{response.Data}", response.Data)
+            : Results.BadRequest();
     });
 
 app.MapPut(
     pattern: "api/parserDynamicEntityModels",
-    handler: async ([FromBody] ParserDynamicEntityModel model, IMediator mediator, CancellationToken cancellationToken) =>
+    handler: async ([FromBody] ReplaceOneParserDynamicEntityModelCommand command,
+        IMediator mediator, 
+        CancellationToken cancellationToken) =>
     {
         var resultEntity = await mediator.Send(
-            request: new ReplaceOneParserDynamicEntityModelCommand() { Model = model },
+            request: command,
             cancellationToken: cancellationToken);
 
-        return Results.Ok(resultEntity);
+        return resultEntity.Data != null
+            ? Results.Ok(resultEntity)
+            : Results.NotFound();
     });
 
 app.MapDelete(
     pattern: "api/parserDynamicEntityModels/{id}",
     handler: async (string id, IMediator mediator, CancellationToken cancellationToken) =>
     {
-        await mediator.Send(
+        var result = await mediator.Send(
             request: new DeleteParserDynamicEntityModelByIdCommand() { Id = id },
             cancellationToken: cancellationToken);
 
-        return Results.NoContent();
+        return result.Data 
+            ? Results.NoContent()
+            : Results.NotFound();
     });
 
 app.Run();

@@ -16,7 +16,7 @@
 
         public async Task<Response<string>> Handle(
             CreateParserDynamicEntityModelCommand request, 
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             var entity = _mapper.Map<ParserDynamicEntityModel>(request);
 
