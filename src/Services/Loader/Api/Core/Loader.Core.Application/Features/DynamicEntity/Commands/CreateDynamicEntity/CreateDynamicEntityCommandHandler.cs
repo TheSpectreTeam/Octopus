@@ -18,7 +18,6 @@
             CreateDynamicEntityCommand request,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            Guard.Against.Null(request, nameof(request));
             var entity = _mapper.Map<LoaderDynamicEntity>(request);
             return await _mongoRepository.CreateAsync(entity) is string stringId
                 ? new Response<string>(

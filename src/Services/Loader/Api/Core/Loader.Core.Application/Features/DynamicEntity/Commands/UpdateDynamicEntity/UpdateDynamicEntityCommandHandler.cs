@@ -17,7 +17,6 @@
             UpdateDynamicEntityCommand request,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            Guard.Against.Null(request, nameof(request));
             var entity = _mapper.Map<LoaderDynamicEntity>(request);
             var replaceOptions = new FindOneAndReplaceOptions<LoaderDynamicEntity, LoaderDynamicEntity> 
             { 

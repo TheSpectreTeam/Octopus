@@ -14,7 +14,6 @@
             DeleteDynamicEntityCommand request,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            Guard.Against.Null(request, nameof(request));
             return await _mongoRepository
                 .DeleteByIdAsync(request.Id) is bool isDeleted
                 ? new Response<bool>(

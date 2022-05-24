@@ -5,9 +5,9 @@
         public GetDynamicEntityQueryValidator()
         {
             RuleFor(_ => _.Id)
+                .NotEmpty().WithMessage(ValidationMessages.ValueIsRequired)
                 .NotNull()
-                .NotEmpty()
-                .Length(24);
+                .Length(24).WithMessage(ValidationMessages.InvalidIdLength);
         }
     }
 }

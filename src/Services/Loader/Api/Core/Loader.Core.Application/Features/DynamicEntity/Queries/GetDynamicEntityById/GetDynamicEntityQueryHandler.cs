@@ -14,7 +14,6 @@
             GetDynamicEntityQuery request, 
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            Guard.Against.Null(request, nameof(request));
             var entity = await _mongoRepository
                 .GetByIdAsync(request.Id);
             return new Response<LoaderDynamicEntity>(

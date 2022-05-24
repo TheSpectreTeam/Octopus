@@ -30,7 +30,7 @@ namespace Loader.Presentation.WebApi.Endpoints
                 request: new GetDynamicEntityQuery { Id = id },
                 cancellationToken: cancellationToken);
 
-            return result.Data != null
+            return result.Data is not null
                 ? Results.Ok(result)
                 : Results.NotFound();
         }
@@ -56,7 +56,7 @@ namespace Loader.Presentation.WebApi.Endpoints
                 request: command,
                 cancellationToken: cancellationToken);
 
-            return result.Data != null
+            return result.Data is not null
                 ? Results.Ok(result)
                 : Results.NotFound();
         }
