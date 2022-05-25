@@ -8,3 +8,6 @@ global using AutoMapper;
 global using Parser.Core.Application.Wrappers;
 global using Common.Models.DynamicEntity;
 global using Parser.Core.Application.Constants;
+global using System.Reflection;
+global using Parser.Core.Application.Behaviours;
+global using Microsoft.Extensions.DependencyInjection;

@@ -1,7 +1,4 @@
 ﻿global using MediatR;
-global using FluentValidation;
-global using System.Reflection;
-global using Parser.Core.Application.Behaviours;
 global using Parser.Core.Application.Queries.GetAllParserDynamicEntityModels;
 global using Microsoft.AspNetCore.Mvc;
 global using Parser.Core.Application.Commands.CreateManyParserDynamicEntityModels;
@@ -10,4 +7,6 @@ global using Parser.Core.Application.Commands.DeleteParserDynamicEntityModelById
 global using Parser.Core.Application.Commands.ReplaceOneParserDynamicEntityModel;
 global using Parser.Core.Application.Queries.GetParserDynamicEntityModelById;
 global using Parser.Core.Application.Wrappers;
+global using Repository.MongoDb;
+global using Parser.Core.Application;
 global using Parser.Core.Domain.Models;

@@ -1,11 +1,14 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddApplicationInfrastructure();
+builder.Services.RegisterMongoDbRepository(builder.Configuration);
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI(_ => _.SwaggerEndpoint("/swagger/v1/swagger.json", "Octopus.Parser.API"));
 
 app.MapGet(
     pattern: "api/parserDynamicEntityModels",
@@ -16,18 +19,26 @@ app.MapGet(
             cancellationToken: cancellationToken);
 
         return Results.Ok(models);
-    });
+    })
+    .Produces<Response<IEnumerable<ParserDynamicEntityModel>>>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status204NoContent)
+    .WithName("GetAllEntities")
+    .WithTags("EntityQueries");
 
 app.MapGet(
     pattern: "api/parserDynamicEntityModels/{id}", 
-    handler: async (object id, IMediator mediator, CancellationToken cancellationToken) =>
+    handler: async (string id, IMediator mediator, CancellationToken cancellationToken) =>
     {
         var model = await mediator.Send(
-            request: new GetParserDynamicEntityModelByIdQuery() { Id = id },
+            request: new GetParserDynamicEntityModelByIdQuery() { Id = id  },
             cancellationToken: cancellationToken);
 
         return Results.Ok(model);
-    });
+    })
+    .Produces<Response<ParserDynamicEntityModel>>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status404NotFound)
+    .WithName("GetEntityById")
+    .WithTags("EntityQueries");
 
 app.MapPost(
     pattern: "api/parserDynamicEntityModel",
@@ -40,7 +51,10 @@ app.MapPost(
             cancellationToken: cancellationToken) is Response<string> response
             ? Results.Created($"api/parserDynamicEntityModel/{response.Data}", response.Data)
             : Results.BadRequest();
-    });
+    })
+    .Produces(StatusCodes.Status201Created)
+    .WithName("AddNewEntity")
+    .WithTags("EntityCommands");
 
 app.MapPost(
     pattern: "api/parserDynamicEntityModels",
@@ -53,7 +67,10 @@ app.MapPost(
             cancellationToken: cancellationToken) is Response<IDictionary<int, string>> response
             ? Results.Created($"api/parserDynamicEntityModels/{response.Data}", response.Data)
             : Results.BadRequest();
-    });
+    })
+    .Produces(StatusCodes.Status201Created)
+    .WithName("AddNewEntities")
+    .WithTags("EntityCommands");
 
 app.MapPut(
     pattern: "api/parserDynamicEntityModels",
@@ -68,7 +85,11 @@ app.MapPut(
         return resultEntity.Data != null
             ? Results.Ok(resultEntity)
             : Results.NotFound();
-    });
+    })
+    .Produces<Response<ParserDynamicEntityModel>>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status404NotFound)
+    .WithName("UpdateEntity")
+    .WithTags("EntityCommands");
 
 app.MapDelete(
     pattern: "api/parserDynamicEntityModels/{id}",
@@ -81,6 +102,9 @@ app.MapDelete(
         return result.Data 
             ? Results.NoContent()
             : Results.NotFound();
-    });
-
+    })
+    .Produces(StatusCodes.Status204NoContent)
+    .WithName("DeleteEntity")
+    .WithTags("EntityCommands");
+ 
 app.Run();
