@@ -6,14 +6,13 @@
         private readonly IMongoRepository<LoaderDynamicEntity> _mongoRepository;
 
         public GetAllDynamicEntitiesQueryHandler(
-            IMapper mapper,
             IMongoRepository<LoaderDynamicEntity> mongoRepository)
         {
             _mongoRepository = mongoRepository;
         } 
 
         public async Task<Response<IReadOnlyList<LoaderDynamicEntity>>> Handle(
-            GetAllDynamicEntitiesQuery request, 
+            GetAllDynamicEntitiesQuery request,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             var entities = await _mongoRepository.GetAllAsync();

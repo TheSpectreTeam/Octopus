@@ -46,7 +46,7 @@
                     RuleFor(_ => _.DatabaseTypeName)
                         .NotEmpty().WithMessage(ValidationMessages.ValueIsRequired)
                         .NotNull()
-                        .MinimumLength(1).WithMessage(ValidationMessages.DbNameInvalidLength);
+                        .MinimumLength(2).WithMessage(ValidationMessages.DbNameInvalidLength);
                 }
             }
         }
