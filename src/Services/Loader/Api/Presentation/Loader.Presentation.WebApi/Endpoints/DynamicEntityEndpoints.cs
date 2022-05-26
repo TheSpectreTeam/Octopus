@@ -23,7 +23,8 @@
             app.MapPost(
                 pattern: "/api/dynamicEntity",
                 handler: DynamicEntityEndpointsMethods.AddNewEntity)
-                .Produces(StatusCodes.Status201Created)
+                .Produces<string>(StatusCodes.Status201Created)
+                .Produces(StatusCodes.Status400BadRequest)
                 .WithName("AddNewEntity")
                 .WithTags("EntityCommands");
 
@@ -39,6 +40,7 @@
                 pattern: "/api/dynamicEntity/{id}",
                 handler: DynamicEntityEndpointsMethods.DeleteEntity)
                 .Produces(StatusCodes.Status204NoContent)
+                .Produces(StatusCodes.Status404NotFound)
                 .WithName("DeleteEntity")
                 .WithTags("EntityCommands");
         }
