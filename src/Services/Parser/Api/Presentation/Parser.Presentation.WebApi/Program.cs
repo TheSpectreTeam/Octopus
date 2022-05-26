@@ -10,6 +10,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(_ => _.SwaggerEndpoint("/swagger/v1/swagger.json", "Octopus.Parser.API"));
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 app.MapGet(
     pattern: "api/parserDynamicEntityModels",
     handler: async (IMediator mediator, CancellationToken cancellationToken) =>
