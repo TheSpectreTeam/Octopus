@@ -18,7 +18,7 @@
             CreateManyParserDynamicEntityModelsCommand request,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            var entities = _mapper.Map<List<ParserDynamicEntityModel>>(request);
+            var entities = _mapper.Map<List<ParserDynamicEntityModel>>(request.Models);
 
             var resultFromRepo = await _mongoRepository.CreateManyAsync(
                 entities: entities,
