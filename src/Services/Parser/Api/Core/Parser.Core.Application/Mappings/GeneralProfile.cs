@@ -1,8 +1,4 @@
-﻿using Parser.Core.Application.Commands.CreateManyParserDynamicEntityModels;
-using Parser.Core.Application.Commands.CreateParserDynamicEntityModel;
-using Parser.Core.Application.Commands.ReplaceOneParserDynamicEntityModel;
-
-namespace Parser.Core.Application.Mappings
+﻿namespace Parser.Core.Application.Mappings
 {
     public class GeneralProfile : Profile
     {

@@ -11,3 +11,6 @@ global using Parser.Core.Application.Constants;
 global using System.Reflection;
 global using Parser.Core.Application.Behaviours;
 global using Microsoft.Extensions.DependencyInjection;
+global using Parser.Core.Application.Commands.CreateManyParserDynamicEntityModels;
+global using Parser.Core.Application.Commands.CreateParserDynamicEntityModel;
+global using Parser.Core.Application.Commands.ReplaceOneParserDynamicEntityModel;
