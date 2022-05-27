@@ -1,0 +1,14 @@
+﻿global using MediatR;
+global using System.Net;
+global using System.Text.Json;
+global using FluentValidation;
+global using Repository.MongoDb;
+global using Microsoft.AspNetCore.Mvc;
+global using Loader.Core.Domain.Models;
+global using Loader.Core.Application.Wrappers;
+global using Loader.Presentation.WebApi.Endpoints;
+global using Loader.Presentation.WebApi.Extensions;
+global using Loader.Presentation.WebApi.Middlewares;
+global using Loader.Presentation.WebApi.Configuration.Ioc;
+global using Loader.Presentation.WebApi.Configuration.Swagger;
+global using Loader.Presentation.WebApi.Configuration.Middlewares;

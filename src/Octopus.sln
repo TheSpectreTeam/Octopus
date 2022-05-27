@@ -65,9 +65,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loader.Presentation.WebApi"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D472524C-05C6-43DB-A4A4-CB83F962A6CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loader.UnitTests", "Services\Loader\Tests\Loader.UnitTests\Loader.UnitTests.csproj", "{3466E68E-3274-4F9D-BC55-DCE80FBBA054}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loader.UnitTests", "Services\Loader\Tests\Loader.UnitTests\Loader.UnitTests.csproj", "{3466E68E-3274-4F9D-BC55-DCE80FBBA054}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loader.FunctionalTests", "Services\Loader\Tests\Loader.FunctionalTests\Loader.FunctionalTests.csproj", "{30A62629-D98A-4C67-A224-3F1A36AE503E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loader.FunctionalTests", "Services\Loader\Tests\Loader.FunctionalTests\Loader.FunctionalTests.csproj", "{30A62629-D98A-4C67-A224-3F1A36AE503E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Parser", "Parser", "{2759F21D-9CF9-4DB3-AE17-8FFFAED9E452}"
 EndProject
