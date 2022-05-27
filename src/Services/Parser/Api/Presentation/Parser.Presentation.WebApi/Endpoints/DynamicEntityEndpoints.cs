@@ -16,7 +16,7 @@
                         ? Results.Ok(models)
                         : Results.NoContent();
                 })
-                .Produces<Response<IEnumerable<ParserDynamicEntityModel>>>(StatusCodes.Status200OK)
+                .Produces<Response<IReadOnlyList<ParserDynamicEntityModel>>>(StatusCodes.Status200OK)
                 .Produces(StatusCodes.Status204NoContent)
                 .WithName("GetAllEntities")
                 .WithTags("EntityQueries");

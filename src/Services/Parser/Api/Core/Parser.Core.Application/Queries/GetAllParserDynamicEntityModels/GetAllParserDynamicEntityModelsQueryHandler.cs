@@ -1,7 +1,7 @@
 ﻿namespace Parser.Core.Application.Queries.GetAllParserDynamicEntityModels
 {
     public class GetAllParserDynamicEntityModelsQueryHandler 
-        : IRequestHandler<GetAllParserDynamicEntityModelsQuery, Response<IEnumerable<ParserDynamicEntityModel>>>
+        : IRequestHandler<GetAllParserDynamicEntityModelsQuery, Response<IReadOnlyList<ParserDynamicEntityModel>>>
     {
         private readonly IMongoRepository<ParserDynamicEntityModel> _mongoRepository;
 
@@ -10,13 +10,13 @@
             _mongoRepository = mongoRepository;
         }
 
-        public async Task<Response<IEnumerable<ParserDynamicEntityModel>>> Handle(
+        public async Task<Response<IReadOnlyList<ParserDynamicEntityModel>>> Handle(
             GetAllParserDynamicEntityModelsQuery request, 
             CancellationToken cancellationToken = default(CancellationToken))
         {
             var entities = await _mongoRepository.GetAllAsync();
 
-            return new Response<IEnumerable<ParserDynamicEntityModel>>(
+            return new Response<IReadOnlyList<ParserDynamicEntityModel>>(
                 data: entities,
                 message: ResponseMessages.EntitiesSuccessfullyFinded);
         }
