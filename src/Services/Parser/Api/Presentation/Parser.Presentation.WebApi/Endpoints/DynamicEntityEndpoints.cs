@@ -12,7 +12,9 @@
                         request: new GetAllParserDynamicEntityModelsQuery(),
                         cancellationToken: cancellationToken);
 
-                    return Results.Ok(models);
+                    return models.Data.Any() 
+                        ? Results.Ok(models)
+                        : Results.NoContent();
                 })
                 .Produces<Response<IEnumerable<ParserDynamicEntityModel>>>(StatusCodes.Status200OK)
                 .Produces(StatusCodes.Status204NoContent)
@@ -27,7 +29,9 @@
                         request: new GetParserDynamicEntityModelByIdQuery() { Id = id },
                         cancellationToken: cancellationToken);
 
-                    return Results.Ok(model);
+                    return model.Data != null 
+                        ? Results.Ok(model)
+                        : Results.NotFound();
                 })
                 .Produces<Response<ParserDynamicEntityModel>>(StatusCodes.Status200OK)
                 .Produces(StatusCodes.Status404NotFound)
@@ -46,7 +50,8 @@
                         ? Results.Created($"api/parserDynamicEntityModel/{response.Data}", response.Data)
                         : Results.BadRequest();
                 })
-                .Produces(StatusCodes.Status201Created)
+                .Produces<string>(StatusCodes.Status201Created)
+                .Produces(StatusCodes.Status400BadRequest)
                 .WithName("AddNewEntity")
                 .WithTags("EntityCommands");
 
@@ -62,7 +67,8 @@
                         ? Results.Created($"api/parserDynamicEntityModels/{response.Data}", response.Data)
                         : Results.BadRequest();
                 })
-                .Produces(StatusCodes.Status201Created)
+                .Produces<string>(StatusCodes.Status201Created)
+                .Produces(StatusCodes.Status400BadRequest)
                 .WithName("AddNewEntities")
                 .WithTags("EntityCommands");
 
@@ -98,6 +104,7 @@
                         : Results.NotFound();
                 })
                 .Produces(StatusCodes.Status204NoContent)
+                .Produces(StatusCodes.Status404NotFound)
                 .WithName("DeleteEntity")
                 .WithTags("EntityCommands");
         }
