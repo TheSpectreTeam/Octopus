@@ -9,11 +9,7 @@
             RuleFor(command => command.Models).NotNull();
 
             RuleForEach(command => command.Models)
-                .ChildRules(model =>
-                {
-                    model.RuleFor(_ => _.EntityName).NotEmpty();
-                    model.RuleFor(_ => _.Properties).NotEmpty();
-                });;
+                .SetValidator(new CreateParserDynamicEntityModelCommandValidator());
         }
     }
 }

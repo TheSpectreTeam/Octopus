@@ -8,6 +8,9 @@
             RuleFor(command => command).NotEmpty();
             RuleFor(command => command.EntityName).NotEmpty();
             RuleFor(command => command.Properties).NotEmpty();
+
+            RuleForEach(command => command.Properties)
+                .SetValidator(new DynamicEntityModelPropertyValidator());
         }
     }
 }
