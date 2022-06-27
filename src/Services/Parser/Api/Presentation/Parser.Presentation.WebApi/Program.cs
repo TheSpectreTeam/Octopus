@@ -14,3 +14,5 @@ app.UseErrorHandlingMiddleware();
 app.MapDynamicEntityEndpoints();
 
 app.Run();
+
+public partial class Program { }

@@ -5,7 +5,7 @@
         public static void MapDynamicEntityEndpoints(this WebApplication app)
         {
             app.MapGet(
-                pattern: "api/parserDynamicEntityModels",
+                pattern: "api/parserDynamicEntityModel",
                 handler: async (IMediator mediator, CancellationToken cancellationToken) =>
                 {
                     var models = await mediator.Send(
@@ -22,7 +22,7 @@
                 .WithTags("EntityQueries");
 
             app.MapGet(
-                pattern: "api/parserDynamicEntityModels/{id}",
+                pattern: "api/parserDynamicEntityModel/{id}",
                 handler: async (string id, IMediator mediator, CancellationToken cancellationToken) =>
                 {
                     var model = await mediator.Send(
@@ -73,7 +73,7 @@
                 .WithTags("EntityCommands");
 
             app.MapPut(
-                pattern: "api/parserDynamicEntityModels",
+                pattern: "api/parserDynamicEntityModel",
                 handler: async ([FromBody] ReplaceOneParserDynamicEntityModelCommand command,
                     IMediator mediator,
                     CancellationToken cancellationToken) =>
@@ -92,7 +92,7 @@
                 .WithTags("EntityCommands");
 
             app.MapDelete(
-                pattern: "api/parserDynamicEntityModels/{id}",
+                pattern: "api/parserDynamicEntityModel/{id}",
                 handler: async (string id, IMediator mediator, CancellationToken cancellationToken) =>
                 {
                     var result = await mediator.Send(
